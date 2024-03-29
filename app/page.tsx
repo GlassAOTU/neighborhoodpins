@@ -24,7 +24,7 @@ export default function Home() {
           const contextArray = data.features[0].context;
 
           // Extract the "text" values from each object in the context array
-          const textValues = contextArray.map(item => item.text);
+          const textValues = contextArray.map((item: { text: any; }) => item.text);
 
           // TODO: Remove this printing
           // Now you have an array of "text" values
@@ -78,7 +78,7 @@ export default function Home() {
     );
 
     // on double click
-    map.on('dblclick', (e) => {
+    map.on('dblclick', (e: { lngLat: any; point: any; }) => {
       var coords = e.lngLat;
       var features = map.queryRenderedFeatures(e.point);
       // console.log(coords);
