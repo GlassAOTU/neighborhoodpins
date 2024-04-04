@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Home.module.css";
+import "./MapControl.css"
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
@@ -9,6 +10,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
 export default function Home() {
+
   const boundLimit = [
     [-74.056, 40.535], // southwest coordinates
     [-71.850, 41.197]  // northeast coordinates
@@ -81,18 +83,20 @@ export default function Home() {
     map.on('dblclick', (e: { lngLat: any; point: any; }) => {
       var coords = e.lngLat;
       var features = map.queryRenderedFeatures(e.point);
-      // console.log(coords);
+      console.log(features)
 
       // check to see if the double click took place on a road
       if (features.length > 0) {
         if ((map.queryRenderedFeatures(e.point))[0].sourceLayer == "road") {
 
+
+          // TODO: delay this to right before data is submitted to database
           reverseGeocode(coords['lng'], coords['lat'])
 
           // create a popup for the marker
-          const popup = new mapboxgl.Popup({ offset: 0 })
+          const popup = new mapboxgl.Popup({ offset: 0, closeButton: true, closeOnClick: false })
             .setLngLat(coords)
-            .setHTML(`<h2>${coords["lat"]}</h2><h2>${coords["lng"]}</h2>`)
+            .setHTML(`<h2>${coords["lat"]}</h2><h2>${coords["lng"]}</h2><button>Cancel</button><button>Submit</button>`)
             .addTo(map);
 
           // make a marker and add it to the map at the clicked location

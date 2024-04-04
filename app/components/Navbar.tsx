@@ -5,9 +5,14 @@ import Image from "next/image"
 import { useState } from "react"
 import { Turn as Hamburger } from 'hamburger-react'
 import './Navbar.css'
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
     const [showNavbar, setShowNavbar] = useState(false)
+
+    const router = useRouter()
+    const pathname = usePathname()
+    const isActive = (href: string) => pathname === href
 
     const handleShowNavbar = () => {
         setShowNavbar(!showNavbar);
@@ -34,16 +39,16 @@ export default function Navbar() {
                 <div className={`${"navElements"}  ${showNavbar && 'active'}`}>
                     <ul>
                         <li>
-                            <Link href="/">Home</Link>
+                            <Link href="/" className={isActive("/") ? "active" : ""}>Home</Link>
                         </li>
                         <li>
-                            <Link href="/issue-tracker">Issue Tracker</Link>
+                            <Link href="/issue-tracker" className={isActive("/issue-tracker") ? "active" : ""}>Issue Tracker</Link>
                         </li>
                         <li>
-                            <Link href="/contact">Contact</Link>
+                            <Link href="/contact" className={isActive("/contact") ? "active" : ""}>Contact</Link>
                         </li>
                         <li>
-                            <Link href="/about">About</Link>
+                            <Link href="/about" className={isActive("/about") ? "active" : ""}>About</Link>
                         </li>
                         <li id="account-button">
                             <Link href="/login">Login/Signup</Link>

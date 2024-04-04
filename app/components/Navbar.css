@@ -18,6 +18,7 @@
   position: relative;
 }
 
+
 .logo {
   position: relative;
   display: flex;
@@ -31,10 +32,11 @@
   display: none;
 }
 
-.navElements {}
+/* .navElements {}
 
-.active {}
+.active {} */
 
+/* makes the list horizontal and removes dots */
 .navElements ul {
   display: flex;
   justify-content: space-between;
@@ -46,6 +48,7 @@
   margin-right: 60px;
 }
 
+/* for the link text */
 .navElements ul a {
   font-size: 20px;
   font-weight: 600;
@@ -56,23 +59,32 @@
   text-overflow: ellipsis;
 }
 
+/* for the active link */
+.navElements a.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* for the sign-up/in button */
 #account-button {
-  background-color: #2c663d;
-  padding: 10px;
+  background-color: #262322;
+  padding: 8px 10px;
   border-radius: 15px;
 }
 
+/* for the text in the sign-up/in button */
 #account-button a {
    color: white;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .navElements ul li:not(:last-child) {
     margin-right: 30px;
   }
-}
+} */
 
-@media (max-width: 900px) {
+/* for when screen width is below 1150 pixels */
+@media (max-width: 1150px) {
   .menuIcon {
     display: flex;
     cursor: pointer;
@@ -92,11 +104,16 @@
     height: calc(100vh - 80px);
     transition: all 0.25s ease-in-out;
     overflow: hidden;
-    z-index: 1;
+    z-index: 2;
   }
 
   .logo {
-    width: 90%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 4px;
   }
 
   .active {
