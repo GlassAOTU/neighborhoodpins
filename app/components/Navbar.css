@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.3);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -61,8 +61,7 @@
 
 /* for the active link */
 .navElements a.active {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+  color: #E6E2D3;
 }
 
 /* for the sign-up/in button */
@@ -74,7 +73,7 @@
 
 /* for the text in the sign-up/in button */
 #account-button a {
-   color: white;
+  color: #E6E2D3;
 }
 
 /* @media (max-width: 768px) {
@@ -99,7 +98,7 @@
     position: absolute;
     right: 0;
     top: 80px;
-    background-color: #fef7e5;
+    background-color: #E6E2D3;
     width: 0px;
     height: calc(100vh - 80px);
     transition: all 0.25s ease-in-out;
@@ -128,5 +127,12 @@
   .navElements ul li {
     margin-right: unset;
     margin-top: 22px;
+  }
+
+  /* for the active link */
+  .navElements a.active {
+    font-weight: 800;
+    color: #262322;
+    text-decoration: solid underline #262322 3px;
   }
 }
