@@ -1,4 +1,8 @@
 'use client'
+// old code
+{
+	/*
+'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import styles from './styles/Home.module.css'
@@ -246,6 +250,209 @@ export default function Home() {
 				className='map-container'
 				// style={{ height: `${mapHeight}px`, width: '100%' }}
 			/>
+			{showModal && (
+				<Modal
+					address={address}
+					municipality={municipality}
+					onClose={onClose}
+					onSubmit={onSubmit}
+					onDeletePin={onDeletePin}
+				/>
+			)}
+		</main>
+	)
+}
+*/
+}
+
+import { useEffect, useRef, useState, useCallback } from 'react'
+import styles from './styles/Home.module.css'
+import './styles/MapControl.css'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import Modal from './components/ConfirmationModal'
+const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
+
+export default function Home() {
+	const mapContainer = useRef(null)
+	const mapRef = useRef()
+	const [showModal, setShowModal] = useState(false)
+	const [address, setAddress] = useState<any>([])
+	const [municipality, setMunicipality] = useState([])
+	const [pin, setPin] = useState(null)
+
+	mapboxgl.accessToken = process.env.TOKEN
+
+	const initializeMap = useCallback(() => {
+		const map = new mapboxgl.Map({
+			container: mapContainer.current,
+			style: 'mapbox://styles/mapbox/streets-v12',
+			center: [-73.41023123049351, 40.809516255241356],
+			zoom: 10,
+			maxBounds: [
+				[-74.056, 40.535],
+				[-71.85, 41.197],
+			],
+			maxPitch: 0,
+		})
+
+		map.on('load', () => {
+			map.addSource('town-data', {
+				type: 'geojson',
+				data: './towns-map.json',
+			})
+
+			map.addLayer({
+				id: 'towns-fill',
+				type: 'fill',
+				source: 'town-data',
+				paint: {
+					'fill-color': '#2ca060',
+					'fill-opacity': 0.0,
+				},
+			})
+
+			map.addLayer({
+				id: 'towns-outline',
+				type: 'line',
+				source: 'town-data',
+				paint: {
+					'line-color': '#165030',
+					'line-width': 0,
+				},
+			})
+
+			map.on('mousemove', 'towns-fill', (e) => {
+				map.setPaintProperty('towns-outline', 'line-width', 3)
+			})
+
+			map.on('mouseleave', 'towns-fill', () => {
+				map.setPaintProperty('towns-outline', 'line-width', 0)
+			})
+		})
+
+		map.doubleClickZoom.disable()
+		map.addControl(new mapboxgl.NavigationControl())
+		map.addControl(
+			new mapboxgl.GeolocateControl({
+				mapboxgl: mapboxgl,
+				positionOptions: {
+					enableHighAccuracy: true,
+				},
+				trackUserLocation: true,
+				showUserHeading: true,
+			})
+		)
+
+		map.addControl(
+			new MapboxGeocoder({
+				mapboxgl: mapboxgl,
+				accessToken: process.env.TOKEN,
+				bbox: [-73.798552, 40.55391, -71.900128, 41.260419],
+			}),
+			'top-left'
+		)
+
+		map.on('click', (e) => {
+			const coords = e.lngLat
+			const features = map.queryRenderedFeatures(e.point)
+			console.log(coords.lng, coords.lat)
+
+			if (features.length > 1 && features[1].sourceLayer === 'road') {
+				reverseGeocode(coords.lng, coords.lat)
+				setMunicipality(features[0].properties.name)
+				setShowModal(true)
+
+				const popup = new mapboxgl.Popup({
+					closeButton: true,
+					closeOnClick: false,
+				})
+					.setLngLat([coords.lng, coords.lat])
+					.setHTML(
+						`<h2>${coords.lat}</h2><h2>${coords.lng}</h2><h2>${address}</h2>`
+					)
+					.addTo(map)
+
+				const marker = new mapboxgl.Marker()
+					.setLngLat([coords.lng, coords.lat])
+					.setPopup(popup)
+					.addTo(map)
+				setPin(marker)
+			}
+		})
+
+		return () => {
+			map.remove()
+		}
+	}, [])
+
+	useEffect(() => {
+		if (!mapRef.current && mapContainer.current) initializeMap()
+	}, [initializeMap])
+
+	useEffect(() => {
+		const updateMapHeight = () => {
+			const mapContainerElement = document.querySelector('.map-container')
+			if (mapContainerElement) {
+				mapContainerElement.style.height = `${
+					window.innerHeight - 80
+				}px`
+			}
+		}
+
+		updateMapHeight()
+		window.addEventListener('resize', updateMapHeight)
+		window.addEventListener('orientationchange', updateMapHeight)
+
+		return () => {
+			window.removeEventListener('resize', updateMapHeight)
+			window.removeEventListener('orientationchange', updateMapHeight)
+		}
+	}, [])
+
+	const onClose = () => setShowModal(false)
+	const onDeletePin = () => {
+		if (pin) {
+			pin.remove()
+			setPin(null)
+		}
+	}
+
+	const onSubmit = () => {
+		console.log('Submit to database')
+		onClose()
+	}
+
+	async function reverseGeocode(longitude: string, latitude: string) {
+		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?types=address&access_token=${process.env.TOKEN}`
+		fetch(url)
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.features && data.features.length > 0) {
+					const rawAddress = data.features[0].place_name
+					setAddress(cleanAddress(rawAddress))
+				} else {
+					console.log('No address data found.')
+				}
+			})
+			.catch((error) => {
+				console.error('Error fetching geocode data:', error)
+			})
+	}
+
+	function cleanAddress(rawAddress) {
+		const components = rawAddress.split(', ')
+		const street = components[0].replace(/^\d+\s/, '')
+		const town = components[1].trim()
+		const zipcodeMatch = components[2].match(/\b\d{5}\b/)
+		const zipcode = zipcodeMatch ? zipcodeMatch[0] : ''
+		return [street, town, zipcode]
+	}
+
+	return (
+		<main className={styles.main}>
+			<div ref={mapContainer} className='map-container' />
 			{showModal && (
 				<Modal
 					address={address}

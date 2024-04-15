@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "@supabase/supabase-js": "^2.42.4",
     "@types/mapbox__mapbox-gl-geocoder": "^5.0.0",
     "hamburger-react": "^2.5.0",
     "mapbox-gl": "^3.2.0",

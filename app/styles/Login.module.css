@@ -1,0 +1,131 @@
+.fullpage {
+	height: calc(100vh - 80px);
+	background-color: #2c7b4e;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}
+
+.container {
+	margin: 50px;
+	padding: 30px;
+	background-color: white;
+	border-radius: 15px;
+	width: 20%;
+	min-width: 400px;
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* styling for the forms */
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	width: 70%;
+}
+
+.input {
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid #c0c0c0;
+	border-radius: 15px;
+	padding: 10px;
+	font-size: 15px;
+}
+
+.input:hover {
+	border: 1px solid #2c7b4e;
+	transition: border 0.15s ease-in-out;
+}
+
+.input {
+	outline: none;
+}
+
+/* styling for the button base */
+.button {
+	width: 100%;
+	color: white;
+	border: 0;
+	border-radius: 15px;
+	padding: 10px;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+/* styling for the email button */
+.submit {
+	background-color: #83ebb0;
+	color: #23613e;
+	border: 1px solid #318a57;
+	box-sizing: border-box;
+}
+
+.submit:hover {
+	background-color: #60dd96;
+}
+
+.submit:active {
+	background-color: #23613e;
+	color: white;
+}
+
+.otherOptions {
+	width: 70%;
+}
+
+/* styling for Apple button */
+.apple {
+	background-color: black;
+}
+
+.apple:hover {
+	background-color: rgba(0, 0, 0, 0.85);
+	transition: background-color 0.15s ease-in-out;
+}
+
+/* styling for Google button */
+.google {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	box-sizing: border-box;
+}
+
+.google:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+	transition: background-color 0.15s ease-in-out;
+}
+
+/* styling for the divider line */
+
+.divider {
+	border-top: 1px solid #2c7b4e;
+	width: 100%;
+	margin: 25px 0px;
+}
+
+.subtext {
+	padding: 0;
+	margin: 0;
+	font-size: 0.9em;
+}
+
+@media (max-width: 600px) {
+	.fullpage {
+		background-color: white;
+	}
+
+	.container {
+		padding: 0;
+		box-shadow: none;
+	}
+}

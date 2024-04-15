@@ -23,7 +23,7 @@ export default function ConfirmationModal ({
 	}
 
 	return (
-		<div>
+		<>
 			{/* // style for the transparent background */}
 			<div
 				className={styles.background}
@@ -136,6 +136,6 @@ export default function ConfirmationModal ({
 					{/* </div> */}
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
