@@ -280,7 +280,7 @@ export default function Home() {
 	const [showModal, setShowModal] = useState(false)
 	const [address, setAddress] = useState<any>([])
 	const [municipality, setMunicipality] = useState([])
-	const [pin, setPin] = useState(null)
+	const [pin, setPin] = useState<mapboxgl.Marker | null>(null);
 
 	mapboxgl.accessToken = process.env.TOKEN
 
@@ -323,7 +323,7 @@ export default function Home() {
 				},
 			})
 
-			map.on('mousemove', 'towns-fill', (e) => {
+			map.on('mousemove', 'towns-fill', (e: any) => {
 				map.setPaintProperty('towns-outline', 'line-width', 3)
 			})
 
@@ -348,13 +348,13 @@ export default function Home() {
 		map.addControl(
 			new MapboxGeocoder({
 				mapboxgl: mapboxgl,
-				accessToken: process.env.TOKEN,
+				accessToken: process.env.TOKEN!,
 				bbox: [-73.798552, 40.55391, -71.900128, 41.260419],
 			}),
 			'top-left'
 		)
 
-		map.on('click', (e) => {
+		map.on('click', (e: any) => {
 			const coords = e.lngLat
 			const features = map.queryRenderedFeatures(e.point)
 			console.log(coords.lng, coords.lat)
@@ -393,7 +393,7 @@ export default function Home() {
 
 	useEffect(() => {
 		const updateMapHeight = () => {
-			const mapContainerElement = document.querySelector('.map-container')
+			const mapContainerElement = document.querySelector('.map-container') as HTMLElement
 			if (mapContainerElement) {
 				mapContainerElement.style.height = `${
 					window.innerHeight - 80
@@ -441,7 +441,7 @@ export default function Home() {
 			})
 	}
 
-	function cleanAddress(rawAddress) {
+	function cleanAddress(rawAddress: any) {
 		const components = rawAddress.split(', ')
 		const street = components[0].replace(/^\d+\s/, '')
 		const town = components[1].trim()
