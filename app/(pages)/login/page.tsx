@@ -31,7 +31,7 @@ export default function Login() {
 						</button>
 						<p className={styles.subtext}>Forgot your password?</p>
 						<Link href='/signup' className={styles.subtext}>
-							Don't have an account? Sign up!
+							New user? Sign up!
 						</Link>
 					</form>
 
