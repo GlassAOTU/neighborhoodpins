@@ -2,11 +2,10 @@ import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
 
 export default function Signup() {
-
-    const signUp = async () => {
-        'use server'
-        console.log("Sign up with email")
-    }
+	const signUp = async () => {
+		'use server'
+		console.log('Sign up with email')
+	}
 
 	return (
 		<div className={styles.fullpage}>
@@ -14,7 +13,7 @@ export default function Signup() {
 				<div className={styles.container}>
 					<h1>First time user?</h1>
 					<form action={signUp} className={styles.form}>
-                    <input
+						<input
 							type='text'
 							className={styles.input}
 							placeholder='Name'
@@ -35,7 +34,9 @@ export default function Signup() {
 						>
 							<strong>Sign up with email</strong>
 						</button>
-						<Link href='/login' className={styles.subtext}>Already have an account? Log in!</Link>
+						<Link href='/login' className={styles.subtext}>
+							Already have an account? Log in!
+						</Link>
 					</form>
 
 					<div className={styles.otherOptions}>
