@@ -129,3 +129,11 @@
 		box-shadow: none;
 	}
 }
+
+.error {
+	background-color: lightcoral;
+	border: 1px solid darkred;
+	padding: 15px;
+	margin: 0;
+	border-radius: 15px;
+}

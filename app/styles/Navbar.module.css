@@ -1,3 +1,11 @@
+.desktopMenu {
+	display: block;
+}
+
+.mobile-menu {
+	display: none;
+  }
+
 .navbar {
 	height: 80px;
 	background-color: #3fae6f;
@@ -91,6 +99,17 @@
 
 /* for when screen width is below 1150 pixels */
 @media (max-width: 1300px) {
+
+	.desktop-menu {
+		display: none;
+	  }
+	  
+	  .mobile-menu {
+		display: block;
+	  }
+
+
+
 	.menuIcon {
 		display: flex;
 		cursor: pointer;

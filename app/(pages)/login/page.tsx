@@ -2,38 +2,40 @@ import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
 
 export default function Login() {
-	const signIn = async () => {
-		'use server'
-		console.log('Sign in with email')
-	}
-
 	return (
 		<div className={styles.fullpage}>
 			<div className={styles.center}>
 				<div className={styles.container}>
 					<h1>Welcome back!</h1>
-					<form action={signIn} className={styles.form}>
+
+					{/* form start */}
+					<form className={styles.form}>
 						<input
 							type='email'
+							name='email'
 							className={styles.input}
 							placeholder='Email'
+							required
 						/>
 						<input
 							type='password'
+							name='password'
 							className={styles.input}
 							placeholder='Password'
+							required
 						/>
 						<button
 							type='submit'
 							className={`${styles.button} ${styles.submit}`}
 						>
-							<strong>Sign in with email</strong>
+							<strong>Sign in</strong>
 						</button>
 						<p className={styles.subtext}>Forgot your password?</p>
 						<Link href='/signup' className={styles.subtext}>
 							New user? Sign up!
 						</Link>
 					</form>
+					{/* form end */}
 
 					<div className={styles.otherOptions}>
 						<hr className={styles.divider} />

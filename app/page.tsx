@@ -266,13 +266,14 @@ export default function Home() {
 }
 
 import { useEffect, useRef, useState, useCallback } from 'react'
-import styles from './styles/Home.module.css'
-import './styles/MapControl.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Modal from './components/ConfirmationModal'
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
+
+import styles from './styles/Home.module.css'
+import './styles/MapControl.css'
+import Modal from './components/ConfirmationModal'
 
 export default function Home() {
 	const mapContainer = useRef(null)
@@ -280,7 +281,7 @@ export default function Home() {
 	const [showModal, setShowModal] = useState(false)
 	const [address, setAddress] = useState<any>([])
 	const [municipality, setMunicipality] = useState([])
-	const [pin, setPin] = useState<mapboxgl.Marker | null>(null);
+	const [pin, setPin] = useState<mapboxgl.Marker | null>(null)
 
 	mapboxgl.accessToken = process.env.TOKEN
 
@@ -393,7 +394,9 @@ export default function Home() {
 
 	useEffect(() => {
 		const updateMapHeight = () => {
-			const mapContainerElement = document.querySelector('.map-container') as HTMLElement
+			const mapContainerElement = document.querySelector(
+				'.map-container'
+			) as HTMLElement
 			if (mapContainerElement) {
 				mapContainerElement.style.height = `${
 					window.innerHeight - 80
@@ -451,17 +454,19 @@ export default function Home() {
 	}
 
 	return (
-		<main className={styles.main}>
-			<div ref={mapContainer} className='map-container' />
-			{showModal && (
-				<Modal
-					address={address}
-					municipality={municipality}
-					onClose={onClose}
-					onSubmit={onSubmit}
-					onDeletePin={onDeletePin}
-				/>
-			)}
-		</main>
+		<>
+			<main className={styles.main}>
+				<div ref={mapContainer} className='map-container' />
+				{showModal && (
+					<Modal
+						address={address}
+						municipality={municipality}
+						onClose={onClose}
+						onSubmit={onSubmit}
+						onDeletePin={onDeletePin}
+					/>
+				)}
+			</main>
+		</>
 	)
 }
