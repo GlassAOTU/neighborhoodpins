@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import supabase from '../supabaseClient'
+import { createClient } from '../utils/supabase/client'
 
 interface GovernmentData {
 	municipality_name: string
@@ -16,6 +16,8 @@ function GovernmentTable() {
 	const [data, setData] = useState<GovernmentData[]>([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState()
+
+	const supabase = createClient()
 
 	useEffect(() => {
 		const fetchData = async () => {

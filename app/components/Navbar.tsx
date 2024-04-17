@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react'
 import { Turn as Hamburger } from 'hamburger-react'
 import styles from '../styles/Navbar.module.css'
 import { useRouter, usePathname } from 'next/navigation'
+import LoginButton from './LoginButton'
 
-export default function Navbar() {
+export default function Navbar({ children }: any) {
 	const [showNavbar, setShowNavbar] = useState(false)
 
 	const pathname = usePathname()
@@ -96,8 +97,9 @@ export default function Navbar() {
 									About
 								</Link>
 							</li>
-							<li id={styles.accountButton}>
-								<Link href='/login'>Login/Signup</Link>
+							<li>
+								{/* <Link href='/login'>Login/Signup</Link> */}
+								{children}
 							</li>
 						</ul>
 					</div>

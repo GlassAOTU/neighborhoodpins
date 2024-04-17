@@ -3,6 +3,7 @@ import styles from './styles/Home.module.css'
 import Navbar from './components/Navbar'
 
 import { Inter } from 'next/font/google'
+import LoginButton from './components/LoginButton'
 
 const overpass = Inter({
 	weight: '400',
@@ -32,7 +33,7 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className={`${styles.html} ${overpass.className}`}>
-				<Navbar />
+				<Navbar><LoginButton /></Navbar>
 				{children}
 			</body>
 		</html>

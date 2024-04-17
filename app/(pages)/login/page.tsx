@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
+import { login } from './actions'
 
 export default function Login() {
 	return (
@@ -26,6 +27,7 @@ export default function Login() {
 						/>
 						<button
 							type='submit'
+							formAction={login}
 							className={`${styles.button} ${styles.submit}`}
 						>
 							<strong>Sign in</strong>
