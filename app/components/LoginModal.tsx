@@ -4,16 +4,20 @@ import { useRouter } from 'next/navigation'
 import styles from '../styles/Modals.module.css'
 
 export default function LoginModal({ onClose }: any) {
-
 	const handleCancel = () => {
 		onClose()
 	}
 
 	const router = useRouter()
 
-	const handleRedirect = () => {
+	const handleSignupRedirect = () => {
 		// Navigate to the 'signup' page
 		router.push('/signup')
+	}
+
+	const handleLoginRedirect = () => {
+		// Navigate to the 'signup' page
+		router.push('/login')
 	}
 
 	return (
@@ -24,9 +28,20 @@ export default function LoginModal({ onClose }: any) {
 					onClick={(e) => e.stopPropagation()}
 				>
 					<h1>You must be logged in to create a pin.</h1>
-					<button className={styles.submitButton} onClick={handleRedirect}>
-						Create an account!
-					</button>
+					<div className={styles.redirectButtons}>
+						<button
+							className={styles.submitButton}
+							onClick={handleSignupRedirect}
+						>
+							Create an account!
+						</button>
+						<button
+							className={styles.submitButton}
+							onClick={handleLoginRedirect}
+						>
+							Sign in!
+						</button>
+					</div>
 				</div>
 			</div>
 		</>

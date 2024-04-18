@@ -276,17 +276,22 @@ import './styles/MapControl.css'
 import ConfirmationModal from './components/ConfirmationModal'
 import LoginModal from './components/LoginModal'
 
+import { createClient } from './utils/supabase/client'
+
 export default function Home() {
 	const mapContainer = useRef(null)
 	const mapRef = useRef()
 	const [showModal, setShowModal] = useState(false)
+	const [isUser, setIsUser] = useState(false)
 	const [address, setAddress] = useState<any>([])
 	const [municipality, setMunicipality] = useState([])
 	const [pin, setPin] = useState<mapboxgl.Marker | null>(null)
 
 	mapboxgl.accessToken = process.env.TOKEN
 
+	// sets up the map for load
 	const initializeMap = useCallback(() => {
+		// sets up the actual map itself
 		const map = new mapboxgl.Map({
 			container: mapContainer.current,
 			style: 'mapbox://styles/mapbox/streets-v12',
@@ -299,12 +304,14 @@ export default function Home() {
 			maxPitch: 0,
 		})
 
+		// loads in the GeoJSON town border data
 		map.on('load', () => {
 			map.addSource('town-data', {
 				type: 'geojson',
 				data: './towns-map.json',
 			})
 
+			// adds an invisible fill the towns
 			map.addLayer({
 				id: 'towns-fill',
 				type: 'fill',
@@ -315,6 +322,7 @@ export default function Home() {
 				},
 			})
 
+			// adds a border to the towns
 			map.addLayer({
 				id: 'towns-outline',
 				type: 'line',
@@ -325,28 +333,31 @@ export default function Home() {
 				},
 			})
 
+			// changes the town fill when the mouse is over it
 			map.on('mousemove', 'towns-fill', (e: any) => {
 				map.setPaintProperty('towns-outline', 'line-width', 3)
 			})
 
+			// changes the town fill when the mouse leaves it
 			map.on('mouseleave', 'towns-fill', () => {
 				map.setPaintProperty('towns-outline', 'line-width', 0)
 			})
 		})
 
 		map.doubleClickZoom.disable()
+		// adds controls for the zoom and compass buttons
 		map.addControl(new mapboxgl.NavigationControl())
+		// adds control for locate me button
 		map.addControl(
 			new mapboxgl.GeolocateControl({
 				mapboxgl: mapboxgl,
 				positionOptions: {
 					enableHighAccuracy: true,
 				},
-				trackUserLocation: true,
-				showUserHeading: true,
+				trackUserLocation: true
 			})
 		)
-
+		// adds search bar
 		map.addControl(
 			new MapboxGeocoder({
 				mapboxgl: mapboxgl,
@@ -356,15 +367,18 @@ export default function Home() {
 			'top-left'
 		)
 
+		// function is ran every time the user clicks on the map
 		map.on('click', (e: any) => {
-			const coords = e.lngLat
-			const features = map.queryRenderedFeatures(e.point)
-			console.log(coords.lng, coords.lat)
+			const coords = e.lngLat    // stores the lat and long of where the mouse clicks
+			const features = map.queryRenderedFeatures(e.point)     // stores the list of features of where the user clicks
 
+			// detects whether the user clicks inside town lines and on a road
 			if (features.length > 1 && features[1].sourceLayer === 'road') {
-				reverseGeocode(coords.lng, coords.lat)
-				setMunicipality(features[0].properties.name)
-				setShowModal(true)
+				reverseGeocode(coords.lng, coords.lat)    // geocodes the address point, cleans the address, and then stores it in state
+				setMunicipality(features[0].properties.name)    // stores the municipality of where the mouse clicks
+																// TODO: make it so that pins cannot be placed outside of town boundaries
+				setShowModal(true)    // toggles the modal bool to show either modal
+
 
 				const popup = new mapboxgl.Popup({
 					closeButton: true,
@@ -374,7 +388,7 @@ export default function Home() {
 					.setHTML(
 						`<h2>${coords.lat}</h2><h2>${coords.lng}</h2><h2>${address}</h2>`
 					)
-					.addTo(map)
+					// .addTo(map)
 
 				const marker = new mapboxgl.Marker()
 					.setLngLat([coords.lng, coords.lat])
@@ -389,11 +403,20 @@ export default function Home() {
 		}
 	}, [])
 
+	// initalizes the map on first launch
 	useEffect(() => {
 		if (!mapRef.current && mapContainer.current) initializeMap()
 	}, [initializeMap])
 
 	useEffect(() => {
+		const fetchData = async () => {
+			const supabase = createClient()
+			const { data } = await supabase.auth.getUser()
+			if (data.user) {
+				setIsUser(true)
+			}
+		}
+
 		const updateMapHeight = () => {
 			const mapContainerElement = document.querySelector(
 				'.map-container'
@@ -405,6 +428,7 @@ export default function Home() {
 			}
 		}
 
+		fetchData()
 		updateMapHeight()
 		window.addEventListener('resize', updateMapHeight)
 		window.addEventListener('orientationchange', updateMapHeight)
@@ -458,7 +482,7 @@ export default function Home() {
 		<>
 			<main className={styles.main}>
 				<div ref={mapContainer} className='map-container' />
-				{showModal && (
+				{showModal && isUser && (
 					<ConfirmationModal
 						address={address}
 						municipality={municipality}
@@ -467,9 +491,7 @@ export default function Home() {
 						onDeletePin={onDeletePin}
 					/>
 				)}
-				{/* {showModal && (
-					<LoginModal onClose={onClose} />
-				)} */}
+				{showModal && !isUser && <LoginModal onClose={onClose} />}
 			</main>
 		</>
 	)
