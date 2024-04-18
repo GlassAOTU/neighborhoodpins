@@ -1,9 +1,19 @@
 import LogoutButton from '@/app/components/LogoutButton'
+import { createClient } from '@/app/utils/supabase/server';
+import { redirect } from 'next/navigation';
 
-export default function PrivatePage() {
+export default async function PrivatePage() {
+
+	const supabase = createClient();
+    const {data: userData} = await supabase.auth.getUser();
+
+	if (!userData.user){
+        redirect('/')
+    }
+
 	return (
 		<div>
-      <h1>Hello</h1>
+      <h1>My Account</h1>
 			<LogoutButton />
 		</div>
 	)

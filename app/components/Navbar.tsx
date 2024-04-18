@@ -2,11 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Turn as Hamburger } from 'hamburger-react'
 import styles from '../styles/Navbar.module.css'
-import { useRouter, usePathname } from 'next/navigation'
-import LoginButton from './LoginButton'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar({ children }: any) {
 	const [showNavbar, setShowNavbar] = useState(false)
@@ -20,7 +19,7 @@ export default function Navbar({ children }: any) {
 
 	return (
 		<>
-			<nav className={`${styles.navbar} ${styles.desktopMenu}`}>
+			<nav className={styles.navbar}>
 				<div className={styles.container}>
 					<div className={styles.logo}>
 						<Link href='/'>
@@ -98,7 +97,7 @@ export default function Navbar({ children }: any) {
 								</Link>
 							</li>
 							<li>
-								{/* <Link href='/login'>Login/Signup</Link> */}
+								{/* children --> the login button that becomes the account button when signed in */}
 								{children}
 							</li>
 						</ul>

@@ -168,7 +168,8 @@
 	list-style: outside url(https://www.smashingmagazine.com/images/bullet.svg)
 		none;
 	padding: 2px 12px;
-	text-align: left;
+	text-align: center;
+	justify-content: center;
 	text-decoration: none;
 	text-shadow: none;
 	text-underline-offset: 1px;

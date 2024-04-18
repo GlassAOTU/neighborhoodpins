@@ -1,6 +1,6 @@
 // components/Modal.js
 import React, { useState } from 'react'
-import styles from '../styles/ConfirmationModal.module.css'
+import styles from '../styles/Modals.module.css'
 
 export default function ConfirmationModal ({
 	address,

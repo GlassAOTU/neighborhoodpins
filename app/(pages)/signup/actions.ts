@@ -15,5 +15,7 @@ export async function signup(formData: any) {
 	if (error) {
 		console.error(error)
 		redirect('/error')
+	} else {
+		redirect('/')
 	}
 }

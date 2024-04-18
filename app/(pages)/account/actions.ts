@@ -15,4 +15,5 @@ export async function logout(){
     revalidatePath('/login')
     revalidatePath('/account')
     revalidatePath('/')
+    redirect('/')
 }

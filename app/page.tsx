@@ -273,7 +273,8 @@ const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
 
 import styles from './styles/Home.module.css'
 import './styles/MapControl.css'
-import Modal from './components/ConfirmationModal'
+import ConfirmationModal from './components/ConfirmationModal'
+import LoginModal from './components/LoginModal'
 
 export default function Home() {
 	const mapContainer = useRef(null)
@@ -458,7 +459,7 @@ export default function Home() {
 			<main className={styles.main}>
 				<div ref={mapContainer} className='map-container' />
 				{showModal && (
-					<Modal
+					<ConfirmationModal
 						address={address}
 						municipality={municipality}
 						onClose={onClose}
@@ -466,6 +467,9 @@ export default function Home() {
 						onDeletePin={onDeletePin}
 					/>
 				)}
+				{/* {showModal && (
+					<LoginModal onClose={onClose} />
+				)} */}
 			</main>
 		</>
 	)

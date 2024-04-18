@@ -1,5 +1,7 @@
+import LoginModal from "@/app/components/LoginModal";
+
 export default function Check() {
 	return (
-        <h1>Checking session Page</h1>
+    <LoginModal />
     )
 }

@@ -90,7 +90,7 @@
 }
 
 /* for the sign-up/in button */
-#accountButton a {
+.loginButton a {
 	background-color: #262322;
 	padding: 8px 10px;
 	border-radius: 15px;

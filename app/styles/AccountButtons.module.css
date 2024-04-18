@@ -1,0 +1,20 @@
+.accountButton {
+    font-size: 20px;
+    background-color: black;
+    border: 0;
+    padding: 8px 10px;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.accountButton:hover {
+    background-color: white;
+    color: black;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.loginButton a:hover {
+    all: unset;
+    background-color: aqua;
+}
