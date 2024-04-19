@@ -277,6 +277,7 @@ import ConfirmationModal from './components/ConfirmationModal'
 import LoginModal from './components/LoginModal'
 
 import { createClient } from './utils/supabase/client'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Home() {
 	const mapContainer = useRef(null)
@@ -287,6 +288,9 @@ export default function Home() {
 	const [municipality, setMunicipality] = useState([])
 	const [pin, setPin] = useState<mapboxgl.Marker | null>(null)
 
+	const pinErrorToast = () => toast.error("Can't place a pin here.")
+	const loginToast = () => toast('Welcome back!')
+
 	mapboxgl.accessToken = process.env.TOKEN
 
 	// sets up the map for load
@@ -294,7 +298,7 @@ export default function Home() {
 		// sets up the actual map itself
 		const map = new mapboxgl.Map({
 			container: mapContainer.current,
-			style: 'mapbox://styles/mapbox/streets-v12',
+			style: 'mapbox://styles/mapbox/dark-v11',
 			center: [-73.41023123049351, 40.809516255241356],
 			zoom: 10,
 			maxBounds: [
@@ -379,14 +383,13 @@ export default function Home() {
 																// TODO: make it so that pins cannot be placed outside of town boundaries
 				setShowModal(true)    // toggles the modal bool to show either modal
 
-
 				const popup = new mapboxgl.Popup({
 					closeButton: true,
 					closeOnClick: false,
 				})
 					.setLngLat([coords.lng, coords.lat])
 					.setHTML(
-						`<h2>${coords.lat}</h2><h2>${coords.lng}</h2><h2>${address}</h2>`
+						`<h2>${address}</h2>`
 					)
 					// .addTo(map)
 
@@ -395,6 +398,8 @@ export default function Home() {
 					.setPopup(popup)
 					.addTo(map)
 				setPin(marker)
+			} else {
+				pinErrorToast()
 			}
 		})
 
@@ -406,6 +411,8 @@ export default function Home() {
 	// initalizes the map on first launch
 	useEffect(() => {
 		if (!mapRef.current && mapContainer.current) initializeMap()
+		loginToast()
+		console.log('toasted')
 	}, [initializeMap])
 
 	useEffect(() => {
@@ -492,6 +499,7 @@ export default function Home() {
 					/>
 				)}
 				{showModal && !isUser && <LoginModal onClose={onClose} />}
+				<Toaster />
 			</main>
 		</>
 	)

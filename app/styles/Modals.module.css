@@ -50,10 +50,10 @@
 	justify-content: center;
 	flex-wrap: no;
 	border-radius: 0.5rem;
-	background-color: #eee;
+	/* background-color: #eee; */
 	box-sizing: border-box;
-	box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-	padding: 0.25rem;
+	/* box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06); */
+	/* padding: 0.25rem; */
 	width: 300px;
 	font-size: 14px;
 }
@@ -81,14 +81,120 @@
 	border-radius: 0.5rem;
 	border: none;
 	padding: 0.5rem 0;
-	color: rgba(51, 65, 85, 1);
+	margin: 0px 5px;
+	/* color: rgba(51, 65, 85, 1); */
 	transition: all 0.15s ease-in-out;
+	border: 1px rgba(0, 0, 0, 0.4) solid;
+	font-size: 0.95rem;
 }
 
-.radio input:checked + .name {
-	background-color: #fff;
-	font-weight: 600;
+
+
+
+
+
+
+
+
+
+
+
+
+
+.radio .pothole:hover + .name {
+	background-color: #ffb672;
+	border: 1px solid #995b20;
+	color: #523010;
 }
+.radio .pothole:checked + .name {
+	background-color: #bd7028;
+	color: white;
+}
+
+.radio .tree:hover + .name {
+	background-color: #6ceea7;
+	border: 1px solid #237447;
+	color: #0f331f
+}
+.radio .tree:checked + .name {
+	background-color: #2e915a;
+	color: white;
+}
+
+.radio .light:hover + .name {
+	background-color: #ffec7f;
+	border: 1px solid #917c08;
+	color: #3a3204;
+}
+.radio .light:checked + .name {
+	background-color: #c4aa16;
+	color: black;
+}
+
+.radio .flood:hover + .name {
+	background-color: #76cdff;
+	border: 1px solid #185688;
+	color: #0a2942;
+}
+.radio .flood:checked + .name {
+	background-color: #2f84ca;
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.radio .low:hover + .name {
+	background-color: #ffec7f;
+	border: 1px solid #917c08;
+	color: #3a3204;
+}
+.radio .low:checked + .name {
+	background-color: #c4aa16;
+	color: black;
+}
+
+.radio .medium:hover + .name {
+	background-color: #ffb672;
+	border: 1px solid #995b20;
+	color: #523010;
+}
+.radio .medium:checked + .name {
+	background-color: #bd7028;
+	color: white;
+}
+
+.radio .high:hover + .name {
+	background-color: #ff7676;
+	border: 1px solid #641e1e;
+	color: #440c0c;
+}
+.radio .high:checked + .name {
+	background-color: #cf3838;
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .buttonSpacing {
 	margin-top: 50px;
