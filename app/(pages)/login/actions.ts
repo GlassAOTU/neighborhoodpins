@@ -21,3 +21,22 @@ export async function login(formData: any) {
 	revalidatePath('/', 'layout')
 	redirect('/')
 }
+
+export async function loginWithGoogle() {
+	const supabase = createClient()
+
+	const { error } = await supabase.auth.signInWithOAuth({
+		provider: 'google',
+		options: {
+			redirectTo: '/'
+		}
+	})
+
+	if (error) {
+		console.error(error)
+		redirect('/error')
+	}
+
+	revalidatePath('/', 'layout')
+	redirect('/')
+}

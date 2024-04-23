@@ -1,4 +1,4 @@
-import LogoutButton from '@/app/components/LogoutButton'
+import LogoutButton from '@/app/components/buttons/LogoutButton'
 import { createClient } from '@/app/utils/supabase/server';
 import { redirect } from 'next/navigation';
 

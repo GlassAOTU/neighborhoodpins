@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
-import { login } from './actions'
+import { login, loginWithGoogle } from './actions'
+import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
 
 export default function Login() {
 	return (
@@ -44,9 +45,7 @@ export default function Login() {
 						<button className={`${styles.button} ${styles.apple}`}>
 							Sign in with Apple
 						</button>
-						<button className={`${styles.button} ${styles.google}`}>
-							Sign in with Google
-						</button>
+						<LoginGoogleButton />
 					</div>
 				</div>
 			</div>

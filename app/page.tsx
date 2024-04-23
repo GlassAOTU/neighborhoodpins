@@ -289,7 +289,6 @@ export default function Home() {
 	const [pin, setPin] = useState<mapboxgl.Marker | null>(null)
 
 	const pinErrorToast = () => toast.error("Can't place a pin here.")
-	const loginToast = () => toast('Welcome back!')
 
 	mapboxgl.accessToken = process.env.TOKEN
 
@@ -411,8 +410,6 @@ export default function Home() {
 	// initalizes the map on first launch
 	useEffect(() => {
 		if (!mapRef.current && mapContainer.current) initializeMap()
-		loginToast()
-		console.log('toasted')
 	}, [initializeMap])
 
 	useEffect(() => {

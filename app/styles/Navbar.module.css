@@ -4,7 +4,7 @@
 
 .mobile-menu {
 	display: none;
-  }
+}
 
 .navbar {
 	height: 80px;
@@ -50,12 +50,12 @@
 
 /* adds some spacing to the right side of every link in the navbar aside from the last one */
 .navElements ul li:not(:last-child) {
-	margin-right: 60px;
+	margin-right: 45px;
 }
 
 /* styles the text in the links */
 .navElements ul a {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 600;
 	padding: 8px 10px;
 	color: #262322;
@@ -77,10 +77,8 @@
 .navElements ul a:active {
 	color: whitesmoke;
 	background-color: #102d1d;
-	/* padding: 8px 10px; */
 	border-radius: 15px;
 }
-
 
 /* style for the active link */
 .navElements a.active {
@@ -97,19 +95,37 @@
 	color: #e6e2d3;
 }
 
-/* for when screen width is below 1150 pixels */
-@media (max-width: 1300px) {
+.svgIcon {
+	position: relative;
+	width: 24px;
+	padding-right: 10px;
+}
 
-	.desktop-menu {
-		display: none;
-	  }
-	  
-	  .mobile-menu {
-		display: block;
-	  }
+.icon,
+.text {
+	vertical-align: middle;
+	display: inline-block;
+}
 
+@media screen and (max-width: 1280px) {
+	.logo {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		margin-top: 4px;
+		max-width: 90%;
+	}
 
+	.navElements ul li:not(:last-child) {
+		margin-right: 10px;
+	}
+	
+}
 
+/* for when screen width is below 1000 pixels */
+@media screen and (max-width: 1000px) {
 	.menuIcon {
 		display: flex;
 		cursor: pointer;

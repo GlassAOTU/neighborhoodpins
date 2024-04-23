@@ -4,7 +4,7 @@ import styles from './styles/Home.module.css'
 import Navbar from './components/Navbar'
 
 import { Inter } from 'next/font/google'
-import LoginButton from './components/LoginButton'
+import LoginButtonNav from './components/buttons/LoginButtonNav'
 
 const inter = Inter({
 	weight: '400',
@@ -34,7 +34,7 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className={`${styles.html} ${inter.className}`}>
-				<Navbar><LoginButton /></Navbar>
+				<Navbar><LoginButtonNav /></Navbar>
 				{children}
 			</body>
 		</html>
