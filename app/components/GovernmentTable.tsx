@@ -30,9 +30,9 @@ function GovernmentTable() {
 				setLoading(false)
 			} else {
 				if (fetchedData) {
-                    setData(fetchedData)
-                }
-                setLoading(false)
+					setData(fetchedData)
+				}
+				setLoading(false)
 			}
 		}
 
@@ -46,10 +46,9 @@ function GovernmentTable() {
 		<div>
 			{data.map((item) => (
 				<div key={item.municipality_name}>
-					{item.municipality_name} <br />
+					<strong>{item.municipality_name}</strong> <br />
 					{item.department_name} <br />
-					{item.opening_time} <br />
-					{item.closing_time} <br />
+					{`${item.opening_time} - ${item.closing_time}`} <br />
 					{item.phone_number} <br />
 					<a href={`${item.website}`}>{item.website}</a> <br />
 					{''} <br />

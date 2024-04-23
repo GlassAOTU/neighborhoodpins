@@ -5,7 +5,7 @@ import { createClient } from '../utils/supabase/client'
 
 export default function IssueTable() {
 	const [data, setData] = useState<any[]>([])
-    const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState()
 
 	const supabase = createClient()
@@ -25,27 +25,33 @@ export default function IssueTable() {
 				setLoading(false)
 			} else {
 				if (fetchedData) {
-                    setData(fetchedData)
-                }
-                setLoading(false)
+					setData(fetchedData)
+				}
+				setLoading(false)
 			}
 		}
 
 		fetchData()
 	}, [])
 
-    if (loading) return <p>Loading...</p>
+	if (loading) return <p>Loading...</p>
 	if (error) return <p>Error loading data!</p>
 
 	return (
 		<div>
 			{data.map((pin) => (
 				<div key={pin.id}>
-					{`${pin.issues?.issue_name} on ${pin.street_name}, ${pin.town_name}, ${pin.zipcode}`} <br />
-					{pin.severity.replace(/\b\w/g, (s: String) => s.toUpperCase())} {'severity'} <br />
-					{`Overseen by ${pin.government?.municipality_name} ${pin.government.department_name}`} <br />
+					<strong>{`${pin.issues?.issue_name} on ${pin.street_name}, ${pin.town_name}, ${pin.zipcode}`}</strong>
+					<br />
+					{`${pin.severity.replace(/\b\w/g, (s: String) =>
+						s.toUpperCase()
+					)}
+					severity`}
+					<br />
+					{`Overseen by ${pin.government?.municipality_name} ${pin.government.department_name}`}
+					<br />
 					{pin.government.phone_number} <br />
-                    {''} <br />
+					{''} <br />
 				</div>
 			))}
 		</div>
