@@ -26,6 +26,7 @@ export default function Login() {
 							placeholder='Password'
 							required
 						/>
+						<p className={styles.subtext}>Forgot your password?</p>
 						<button
 							type='submit'
 							formAction={login}
@@ -33,7 +34,6 @@ export default function Login() {
 						>
 							<strong>Sign in</strong>
 						</button>
-						<p className={styles.subtext}>Forgot your password?</p>
 						<Link href='/signup' className={styles.subtext}>
 							New user? Sign up!
 						</Link>

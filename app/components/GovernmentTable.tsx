@@ -46,14 +46,13 @@ function GovernmentTable() {
 		<div>
 			{data.map((item) => (
 				<div key={item.municipality_name}>
-					{' '}
-					<br />
 					{item.municipality_name} <br />
 					{item.department_name} <br />
 					{item.opening_time} <br />
 					{item.closing_time} <br />
 					{item.phone_number} <br />
 					<a href={`${item.website}`}>{item.website}</a> <br />
+					{''} <br />
 				</div>
 			))}
 		</div>

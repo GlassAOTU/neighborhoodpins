@@ -3,8 +3,9 @@
 import { useRouter } from 'next/navigation'
 import styles from '../styles/Modals.module.css'
 
-export default function LoginModal({ onClose }: any) {
+export default function LoginModal({ onClose, onDeletePin }: any) {
 	const handleCancel = () => {
+		onDeletePin()
 		onClose()
 	}
 
