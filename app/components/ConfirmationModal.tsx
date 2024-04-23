@@ -99,7 +99,7 @@ export default function ConfirmationModal({
 					</div>
 
 					<div className={styles.radioButtons}>
-						<h2>Select the issue:</h2>
+						<h2>Issue</h2>
 
 						<div
 							className={styles.radioInputs}
@@ -153,7 +153,7 @@ export default function ConfirmationModal({
 						</div>
 					</div>
 					<div className={styles.radioButtons}>
-						<h2>Select the severity:</h2>
+						<h2>Severity</h2>
 						<div className={styles.radioInputs}>
 							<label className={styles.radio}>
 								<input

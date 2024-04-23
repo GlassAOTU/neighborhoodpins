@@ -29,14 +29,14 @@ export default function Home() {
 
 	mapboxgl.accessToken = process.env.TOKEN
 
-	// sets up the map for load
 	const initializeMap = useCallback(() => {
-		// sets up the actual map itself
 		const map = new mapboxgl.Map({
 			container: mapContainer.current,
 			style: 'mapbox://styles/mapbox/dark-v11',
 			center: [-73.41023123049351, 40.809516255241356],
 			zoom: 10,
+			minZoom: 5,
+			maxZoom: 20,
 			maxBounds: [
 				[-74.056, 40.535],
 				[-71.85, 41.197],
@@ -46,9 +46,16 @@ export default function Home() {
 
 		// loads in the GeoJSON town border data
 		map.on('load', () => {
+			// loads the town data source layer
 			map.addSource('town-data', {
 				type: 'geojson',
 				data: './towns-map.json',
+			})
+
+			// creates empty pin-data source layer
+			map.addSource('pin-data', {
+				type: 'geojson',
+				data: { type: 'FeatureCollection', features: [] },
 			})
 
 			// adds an invisible fill the towns
@@ -58,30 +65,65 @@ export default function Home() {
 				source: 'town-data',
 				paint: {
 					'fill-color': '#2ca060',
-					'fill-opacity': 0.0,
+					'fill-opacity': 0.1,
 				},
 			})
 
 			// adds a border to the towns
+			// map.addLayer({
+			// 	id: 'towns-outline',
+			// 	type: 'line',
+			// 	source: 'town-data',
+			// 	paint: {
+			// 		'line-color': '#165030',
+			// 		'line-width': 0,
+			// 	},
+			// })
+
+			// adds pins and their colors
 			map.addLayer({
-				id: 'towns-outline',
-				type: 'line',
-				source: 'town-data',
+				id: 'pin-points',
+				type: 'circle',
+				source: 'pin-data',
 				paint: {
-					'line-color': '#165030',
-					'line-width': 0,
+					'circle-radius': {
+						base: 1.75,
+						stops: [
+							[5, 1],
+							[10, 5],
+							[20, 30],
+						],
+					},
+					'circle-color': [
+						'match',
+						['get', 'type_num'],
+						1,
+						'#ff7400', // orange for pothole (1)
+						2,
+						'#0cb720', // green for tree (2)
+						3,
+						'#ece624', // yellow for broken streetlight (3)
+						4,
+						'#0c62b7', // blue for flood (4)
+						'#ccc', // gray for default color
+					],
+					'circle-stroke-width': 2,
+					'circle-stroke-color': '#ffffff',
 				},
 			})
 
-			// changes the town fill when the mouse is over it
-			map.on('mousemove', 'towns-fill', (e: any) => {
-				map.setPaintProperty('towns-outline', 'line-width', 3)
-			})
+			// fetches the pins from the database and populates the pin-data source
+			fetchDataAndAddToMap(map)
 
-			// changes the town fill when the mouse leaves it
-			map.on('mouseleave', 'towns-fill', () => {
-				map.setPaintProperty('towns-outline', 'line-width', 0)
-			})
+			// // changes the town fill when the mouse is over it
+			// map.on('mousemove', 'towns-fill', (e: any) => {
+			// 	map.setPaintProperty('towns-outline', 'line-width', 3)
+			// })
+
+			// // changes the town fill when the mouse leaves it
+			// map.on('mouseleave', 'towns-fill', () => {
+			// 	map.setPaintProperty('towns-outline', 'line-width', 0)
+			// })
 		})
 
 		map.doubleClickZoom.disable()
@@ -107,34 +149,77 @@ export default function Home() {
 			'top-left'
 		)
 
+		// creates empty popup that will be used on click on each pin
+		const popup = new mapboxgl.Popup({
+			closeButton: true,
+			closeOnClick: false,
+		})
+
+		// changes the cursor to a pointer when the mouse is over the pins
+		map.on('mouseenter', 'pin-points', (e: any) => {
+			map.getCanvas().style.cursor = 'pointer'
+		})
+
+		// changes the cursor back to the default when the mouse leaves the pins
+		map.on('mouseleave', 'pin-points', () => {
+			map.getCanvas().style.cursor = ''
+		})
+
+		// ran every time the user clicks on a pin
+		map.on('click', 'pin-points', (e: any) => {
+			// Copy coordinates array.
+			const coordinates = e.features[0].geometry.coordinates.slice()
+			const type_name = e.features[0].properties.type_name
+			const street = e.features[0].properties.street_name
+			const town = e.features[0].properties.town_name
+			const zipcode = e.features[0].properties.zipcode
+			const mmunicipality =
+				e.features[0].properties.municipality_name
+			const department = e.features[0].properties.department_name
+			const phone_number =
+				e.features[0].properties.phone_number
+
+			// Ensure that if the map is zoomed out such that multiple
+			// copies of the feature are visible, the popup appears
+			// over the copy being pointed to.
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
+			}
+
+			// Populate the popup and set its coordinates
+			// based on the feature found.
+			popup
+				.setLngLat(coordinates)
+				.setHTML(
+					`<h2 style="text-align: center;">${type_name}</h2>
+					<h3>${street}, ${town}, ${zipcode}</h3>
+					<h2 style="text-align: center;">Contact</h2>
+					<h3>${mmunicipality} - ${department}</h3>
+					<h3>${phone_number}</h3>`
+				)
+				.addTo(map)
+		})
+
 		// function is ran every time the user clicks on the map
 		map.on('click', (e: any) => {
 			const coords = e.lngLat // stores the lat and long of where the mouse clicks
 			setPoint(coords)
 			const features = map.queryRenderedFeatures(e.point) // stores the list of features of where the user clicks
+			console.log(features)
 
 			// detects whether the user clicks inside town lines and on a road
-			if (features.length > 1 && features[1].sourceLayer === 'road') {
+			if (features.length > 0 && features[0].source === 'pin-data') {
+				console.log('clicked pin')
+				// TODO: remove console output
+			} else if (
+				// TODO: refine error messages for pins
+				features.length > 1 &&
+				features[0].source === 'town-data' &&
+				features[1].sourceLayer === 'road'
+			) {
 				reverseGeocode(coords.lng, coords.lat) // geocodes the address point, cleans the address, and then stores it in state
 				setMunicipality(features[0].properties.name) // stores the municipality of where the mouse clicks
-				// TODO: make it so that pins cannot be placed outside of town boundaries
 				setShowModal(true) // toggles the modal bool to show either modal
-
-
-				const popup = new mapboxgl.Popup({
-					closeButton: true,
-					closeOnClick: false,
-				})
-					.setLngLat([coords.lng, coords.lat])
-					.setHTML(`<h2>${address}</h2>`)
-
-				const marker = new mapboxgl.Marker()
-					.setLngLat([coords.lng, coords.lat])
-					.setPopup(popup)
-					.addTo(map)
-
-				setPin(marker)
-				
 			} else {
 				pinErrorToast()
 			}
@@ -149,6 +234,56 @@ export default function Home() {
 	useEffect(() => {
 		if (!mapRef.current && mapContainer.current) initializeMap()
 	}, [initializeMap])
+
+	const fetchDataAndAddToMap = async (map: any) => {
+		const supabase = createClient()
+		const { data, error } = await supabase
+			.from('pins')
+			.select(
+				'id, latitude, longitude, issue_type_id, street_name, town_name, zipcode, municipality_name, government (municipality_name, department_name, phone_number), issues (*)'
+			)
+
+		console.log(data)
+
+		if (error) {
+			console.error('Error fetching data:', error)
+			return
+		}
+
+		const features = data.map((item) => ({
+			type: 'Feature',
+			geometry: {
+				type: 'Point',
+				coordinates: [
+					parseFloat(item.longitude),
+					parseFloat(item.latitude),
+				],
+			},
+			properties: {
+				id: item.id,
+				type_num: item.issue_type_id,
+				// @ts-ignore -- code works completely fine, TS is throwing errors
+				type_name: item.issues.issue_name,
+				street_name: item.street_name,
+				town_name: item.town_name,
+				zipcode: item.zipcode,
+				municipality_name: item.municipality_name,
+				// @ts-ignore -- code works completely fine, TS is throwing errors
+				department_name: item.government.department_name,
+				// @ts-ignore -- code works completely fine, TS is throwing errors
+				phone_number: item.government.phone_number,
+			},
+		}))
+
+		const geojsonData = {
+			type: 'FeatureCollection',
+			features: features,
+		}
+
+		if (map.getSource('pin-data')) {
+			map.getSource('pin-data').setData(geojsonData)
+		}
+	}
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -191,12 +326,6 @@ export default function Home() {
 		}
 	}
 
-	// TODO: potentially get rid of
-	const onSubmit = () => {
-		console.log('Submit to database')
-		onClose()
-	}
-
 	async function reverseGeocode(longitude: string, latitude: string) {
 		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?types=address&access_token=${process.env.TOKEN}`
 		fetch(url)
@@ -237,7 +366,9 @@ export default function Home() {
 						onDeletePin={onDeletePin}
 					/>
 				)}
-				{showModal && !isUser && <LoginModal onClose={onClose} onDeletePin={onDeletePin} />}
+				{showModal && !isUser && (
+					<LoginModal onClose={onClose} onDeletePin={onDeletePin} />
+				)}
 				<Toaster />
 			</main>
 		</>

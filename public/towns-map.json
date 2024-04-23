@@ -3,6 +3,7 @@
     "features": [
         {
             "type": "Feature",
+            "id": 0,
             "properties": {
                 "name": "Smithtown"
             },
@@ -580,11 +581,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 0
+            }
         },
         {
             "type": "Feature",
+            "id": 1,
             "properties": {
                 "name": "Islip"
             },
@@ -3252,11 +3253,11 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 1
+            }
         },
         {
             "type": "Feature",
+            "id": 2,
             "properties": {
                 "name": "Babylon"
             },
@@ -4372,11 +4373,11 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 2
+            }
         },
         {
             "type": "Feature",
+            "id": 3,
             "properties": {
                 "name": "Shelter Island"
             },
@@ -5806,11 +5807,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 3
+            }
         },
         {
             "type": "Feature",
+            "id": 4,
             "properties": {
                 "name": "East Hampton"
             },
@@ -7294,11 +7295,11 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 4
+            }
         },
         {
             "type": "Feature",
+            "id": 5,
             "properties": {
                 "name": "Glen Cove"
             },
@@ -7928,11 +7929,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 5
+            }
         },
         {
             "type": "Feature",
+            "id": 6,
             "properties": {
                 "name": "Riverhead"
             },
@@ -8890,11 +8891,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 6
+            }
         },
         {
             "type": "Feature",
+            "id": 7,
             "properties": {
                 "name": "Huntington"
             },
@@ -10384,11 +10385,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 7
+            }
         },
         {
             "type": "Feature",
+            "id": 8,
             "properties": {
                 "name": "Long Beach"
             },
@@ -10514,11 +10515,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 8
+            }
         },
         {
             "type": "Feature",
+            "id": 9,
             "properties": {
                 "name": "Hempstead"
             },
@@ -12910,11 +12911,11 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 9
+            }
         },
         {
             "type": "Feature",
+            "id": 10,
             "properties": {
                 "name": "Oyster Bay"
             },
@@ -15206,11 +15207,11 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 10
+            }
         },
         {
             "type": "Feature",
+            "id": 11,
             "properties": {
                 "name": "Southold"
             },
@@ -16190,11 +16191,11 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 11
+            }
         },
         {
             "type": "Feature",
+            "id": 12,
             "properties": {
                 "name": "Southampton"
             },
@@ -17768,11 +17769,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 12
+            }
         },
         {
             "type": "Feature",
+            "id": 13,
             "properties": {
                 "name": "North Hempstead"
             },
@@ -18842,11 +18843,11 @@
                     ]
                 ],
                 "type": "Polygon"
-            },
-            "id": 13
+            }
         },
         {
             "type": "Feature",
+            "id": 14,
             "properties": {
                 "name": "Brookhaven"
             },
@@ -21850,8 +21851,7 @@
                     ]
                 ],
                 "type": "MultiPolygon"
-            },
-            "id": 14
+            }
         }
     ]
 }
