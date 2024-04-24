@@ -69,17 +69,6 @@ export default function Home() {
 				},
 			})
 
-			// adds a border to the towns
-			// map.addLayer({
-			// 	id: 'towns-outline',
-			// 	type: 'line',
-			// 	source: 'town-data',
-			// 	paint: {
-			// 		'line-color': '#165030',
-			// 		'line-width': 0,
-			// 	},
-			// })
-
 			// adds pins and their colors
 			map.addLayer({
 				id: 'pin-points',
@@ -115,12 +104,23 @@ export default function Home() {
 			// fetches the pins from the database and populates the pin-data source
 			fetchDataAndAddToMap(map)
 
-			// // changes the town fill when the mouse is over it
+			// adds a border to the towns
+			// map.addLayer({
+			// 	id: 'towns-outline',
+			// 	type: 'line',
+			// 	source: 'town-data',
+			// 	paint: {
+			// 		'line-color': '#165030',
+			// 		'line-width': 0,
+			// 	},
+			// })
+
+			// changes the town fill when the mouse is over it
 			// map.on('mousemove', 'towns-fill', (e: any) => {
 			// 	map.setPaintProperty('towns-outline', 'line-width', 3)
 			// })
 
-			// // changes the town fill when the mouse leaves it
+			// changes the town fill when the mouse leaves it
 			// map.on('mouseleave', 'towns-fill', () => {
 			// 	map.setPaintProperty('towns-outline', 'line-width', 0)
 			// })
@@ -173,11 +173,9 @@ export default function Home() {
 			const street = e.features[0].properties.street_name
 			const town = e.features[0].properties.town_name
 			const zipcode = e.features[0].properties.zipcode
-			const mmunicipality =
-				e.features[0].properties.municipality_name
+			const mmunicipality = e.features[0].properties.municipality_name
 			const department = e.features[0].properties.department_name
-			const phone_number =
-				e.features[0].properties.phone_number
+			const phone_number = e.features[0].properties.phone_number
 
 			// Ensure that if the map is zoomed out such that multiple
 			// copies of the feature are visible, the popup appears
@@ -250,6 +248,7 @@ export default function Home() {
 			return
 		}
 
+		// for every row in the database, create a point in the point features
 		const features = data.map((item) => ({
 			type: 'Feature',
 			geometry: {
@@ -275,16 +274,19 @@ export default function Home() {
 			},
 		}))
 
+		// creates an empty geojson feature collection
 		const geojsonData = {
 			type: 'FeatureCollection',
 			features: features,
 		}
 
+		// adds the pins from the point features to the geojson
 		if (map.getSource('pin-data')) {
 			map.getSource('pin-data').setData(geojsonData)
 		}
 	}
 
+	// runs once on page load
 	useEffect(() => {
 		const fetchData = async () => {
 			const supabase = createClient()
@@ -318,31 +320,31 @@ export default function Home() {
 	}, [])
 
 	const onClose = () => setShowModal(false)
-
+	
 	const onDeletePin = () => {
 		if (pin) {
 			pin.remove()
 			setPin(null)
 		}
 	}
-
+	
 	async function reverseGeocode(longitude: string, latitude: string) {
 		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?types=address&access_token=${process.env.TOKEN}`
 		fetch(url)
-			.then((response) => response.json())
-			.then((data) => {
-				if (data.features && data.features.length > 0) {
-					const rawAddress = data.features[0].place_name
-					setAddress(cleanAddress(rawAddress))
-				} else {
-					console.log('No address data found.')
-				}
-			})
-			.catch((error) => {
-				console.error('Error fetching geocode data:', error)
-			})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data.features && data.features.length > 0) {
+				const rawAddress = data.features[0].place_name
+				setAddress(cleanAddress(rawAddress))
+			} else {
+				console.log('No address data found.')
+			}
+		})
+		.catch((error) => {
+			console.error('Error fetching geocode data:', error)
+		})
 	}
-
+	
 	function cleanAddress(rawAddress: any) {
 		const components = rawAddress.split(', ')
 		const street = components[0].replace(/^\d+\s/, '')

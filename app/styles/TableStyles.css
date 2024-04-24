@@ -1,0 +1,65 @@
+.ka-table-container {
+	overflow-x: auto; /* Ensures the table is scrollable horizontally */
+	margin: 20px; /* Adds margin around the table */
+}
+
+.ka-table {
+	border-collapse: collapse; /* Removes space between borders */
+}
+
+.ka-table th {
+	background-color: #f2f2f2; /* Light grey background for headers */
+	color: #333; /* Dark text for contrast */
+	padding: 8px; /* Padding around header text */
+	border: 1px solid #ddd; /* Light borders for each cell */
+}
+
+.ka-table td {
+	padding: 8px 20px; /* Padding in cells */
+	border: 1px solid #ddd; /* Borders around cells */
+	text-align: left; /* Aligns text to the left */
+}
+
+.ka-table tr:nth-child(even) {
+	background-color: #f9f9f9; /* Zebra striping for rows */
+}
+
+.ka-table tr:hover {
+	background-color: rgb(221, 255, 236); /* Highlight on hover */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-element {
+	width: 80%; /* Match the full width to align with the table width */
+	padding: 8px; /* Same padding as table cells for consistency */
+	margin: 0 20px 20px 20px; /* Align with the table's margin */
+	border: 1px solid #ddd; /* Similar to table cells */
+	background-color: #fff; /* Background color for contrast and visibility */
+	color: #333; /* Text color to match the table headers */
+	font-size: 16px; /* Adequate font size for visibility */
+	box-sizing: border-box; /* Ensures padding and border are included in width */
+	outline: none; /* Removes the default focus outline to modernize the look */
+}
+
+.top-element {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: block;
+    width: 30%;
+}
+
+.top-element:focus {
+	border-color: #888; /* Changes the border color on focus for visibility */
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for emphasis */
+}
+
+@media screen and (max-width: 1200px) {
+	
+
+
+}
