@@ -1,23 +1,26 @@
 .accountButton {
     font-size: 18px;
-    background-color: black;
+    background-color: #051914;
     border: 0;
     padding: 8px 10px;
-    color: white;
+    color: #aadd66;
     border-radius: 15px;
     cursor: pointer;
-}
-
-.accountButton:hover {
-    background-color: white;
-    color: black;
+    /* box-shadow: inset 0 0 0 2px #051914; */
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.loginButton a:hover {
+.accountButton:hover {
+    background-color: #aadd66;
+    color: #051914;
+    /* box-shadow: inset 0 0 0 2px #051914; */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* .loginButton a:hover {
     all: unset;
     background-color: aqua;
-}
+} */
 
 
 .buttonFlex {
