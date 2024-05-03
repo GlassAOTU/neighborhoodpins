@@ -20,7 +20,7 @@ export default function Home() {
 	const [showModal, setShowModal] = useState(false)
 	const [isUser, setIsUser] = useState(false)
 	const [point, setPoint] = useState<any>()
-	const [userEmail, setUserEmail] = useState('')
+	const [userUUID, setUserUUID] = useState('')
 	const [address, setAddress] = useState<any>([])
 	const [municipality, setMunicipality] = useState([])
 	const [pin, setPin] = useState<mapboxgl.Marker | null>(null)
@@ -68,6 +68,17 @@ export default function Home() {
 					'fill-opacity': 0.1,
 				},
 			})
+			
+			// adds a border to the towns
+			map.addLayer({
+				id: 'towns-outline',
+				type: 'line',
+				source: 'town-data',
+				paint: {
+					'line-color': '#165030',
+					'line-width': 2,
+				},
+			})
 
 			// adds pins and their colors
 			map.addLayer({
@@ -104,16 +115,6 @@ export default function Home() {
 			// fetches the pins from the database and populates the pin-data source
 			fetchDataAndAddToMap(map)
 
-			// adds a border to the towns
-			// map.addLayer({
-			// 	id: 'towns-outline',
-			// 	type: 'line',
-			// 	source: 'town-data',
-			// 	paint: {
-			// 		'line-color': '#165030',
-			// 		'line-width': 0,
-			// 	},
-			// })
 
 			// changes the town fill when the mouse is over it
 			// map.on('mousemove', 'towns-fill', (e: any) => {
@@ -207,7 +208,7 @@ export default function Home() {
 
 			// detects whether the user clicks inside town lines and on a road
 			if (features.length > 0 && features[0].source === 'pin-data') {
-				console.log('clicked pin')
+				// console.log('clicked pin')
 				// TODO: remove console output
 			} else if (
 				// TODO: refine error messages for pins
@@ -233,6 +234,7 @@ export default function Home() {
 		if (!mapRef.current && mapContainer.current) initializeMap()
 	}, [initializeMap])
 
+	// fetches the data from the database and adds it to the map
 	const fetchDataAndAddToMap = async (map: any) => {
 		const supabase = createClient()
 		const { data, error } = await supabase
@@ -293,7 +295,7 @@ export default function Home() {
 			const { data } = await supabase.auth.getUser()
 			if (data.user) {
 				setIsUser(true)
-				setUserEmail(data.user.email!)
+				setUserUUID(data.user.id!)
 			}
 		}
 
@@ -363,7 +365,7 @@ export default function Home() {
 						point={point}
 						address={address}
 						municipality={municipality}
-						email={userEmail}
+						uuid={userUUID}
 						onClose={onClose}
 						onDeletePin={onDeletePin}
 					/>

@@ -1,0 +1,174 @@
+/* turns entire page into a flex column */
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 600px;
+}
+
+.settingsToggle {
+	display: flex;
+	flex-direction: row;
+}
+
+.editSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 1px #0000004d solid;
+	border-radius: 15px;
+	padding: 10px;
+	margin: 20px;
+}
+
+.legend {
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.modal {
+	margin: 50px;
+	padding: 30px;
+	background-color: white;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+}
+
+.fullpage {
+	height: calc(100vh - 80px);
+	background-color: #003527;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ! styling for checked slider */
+.switch {
+	--secondary-container: #aadd66;
+	--primary: #125b49;
+	font-size: 17px;
+	position: relative;
+	display: inline-block;
+	width: 3.7em;
+	height: 1.8em;
+	border: 2px #0000004d solid;
+	border-radius: 30px;
+	z-index: 2;
+}
+
+.switch input {
+	display: none;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* ! styling for the background of unchecked slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ffffff;
+	transition: 0.2s;
+	border-radius: 30px;
+}
+
+/* ! styling for the knob of checked slider */
+.slider:before {
+	position: absolute;
+	content: '';
+	height: 1.4em;
+	width: 1.4em;
+	border-radius: 20px;
+	left: 0.2em;
+	bottom: 0.2em;
+	background-color: #aadd66;
+	transition: 0.4s;
+}
+
+input:checked + .slider::before {
+	background-color: var(--primary);
+}
+
+input:checked + .slider {
+	background-color: var(--secondary-container);
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px var(--secondary-container);
+}
+
+input:checked + .slider:before {
+	transform: translateX(1.9em);
+}
+
+
+
+
+
+
+
+
+/* aligns the label to the left of the form */
+.formAlign {
+	/* display: flex; */
+	padding: 10px;
+}
+
+/* gives the label next to the forms padding */
+.formAlign label {
+	padding: 0 10px;
+}
+
+.labelCenter {
+	display: flex;
+	align-items: center;
+}
+
+.saveButton {
+	font-size: 18px;
+	background-color: #aadd66;
+	border: 0;
+	padding: 8px 10px;
+	margin-bottom: 20px;
+	color: #003527;
+	border-radius: 15px;
+	cursor: pointer;
+	/* box-shadow: inset 0 0 0 2px #051914; */
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.saveButton:hover {
+	background-color: #125b49;
+	color: #eceabe;
+	/* box-shadow: inset 0 0 0 2px #051914; */
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.form {
+	width: 400px;
+	box-sizing: border-box;
+	border: 1px solid #c0c0c0;
+	border-radius: 15px;
+	padding: 10px;
+	font-size: 15px;
+}

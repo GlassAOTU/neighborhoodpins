@@ -52,7 +52,7 @@
 	font-size: 18px;
 	font-weight: 600;
 	padding: 8px 10px;
-	color: #aadd66;
+	color: #eceabe;
 	border-radius: 15px;
 	text-decoration: none;
 	white-space: nowrap;
@@ -85,7 +85,7 @@
 	color: #081914;
 	background-color: #aadd66;
 	border-radius: 15px;
-	box-shadow: 0 0 10px 2px #00000065;
+	box-shadow: 0 0 5px 2px #00000065;
 }
 
 .svgIcon {
@@ -118,6 +118,11 @@
 
 /* for when screen width is below 1000 pixels */
 @media screen and (max-width: 1000px) {
+
+	.navElements ul a {
+		color: #125b49;
+	}
+
 	.menuIcon {
 		display: flex;
 		cursor: pointer;
@@ -132,7 +137,7 @@
 		position: absolute;
 		right: 0;
 		top: 80px;
-		background-color: #fef7e5;
+		background-color: #eceabe;
 		width: 0px;
 		height: calc(100vh - 80px);
 		transition: all 0.25s ease-in-out;

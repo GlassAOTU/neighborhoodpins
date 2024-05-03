@@ -14,12 +14,13 @@ export async function login(formData: any) {
 	const { error } = await supabase.auth.signInWithPassword(data)
 
 	if (error) {
-		console.error(error)
-		redirect('/error')
+		console.log(error.message)
+		// redirect('/error')
+	} else {
+		revalidatePath('/', 'layout')
+		redirect('/')
 	}
-
-	revalidatePath('/', 'layout')
-	redirect('/')
+	
 }
 
 export async function loginWithGoogle() {

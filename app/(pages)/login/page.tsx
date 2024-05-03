@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
 import { login, loginWithGoogle } from './actions'
@@ -12,21 +14,21 @@ export default function Login() {
 
 					{/* form start */}
 					<form className={styles.form}>
+						<label htmlFor="email" className={styles.leftLabel}>Email</label>
 						<input
 							type='email'
 							name='email'
 							className={styles.input}
-							placeholder='Email'
 							required
 						/>
+						<label htmlFor="password" className={styles.leftLabel}>Password</label>
 						<input
 							type='password'
 							name='password'
 							className={styles.input}
-							placeholder='Password'
 							required
 						/>
-						<p className={styles.subtext}>Forgot your password?</p>
+						<Link href='/forgot-password' className={styles.subtext} style={{ paddingBottom: '10px' }}>Forgot your password?</Link>
 						<button
 							type='submit'
 							formAction={login}

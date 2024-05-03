@@ -1,6 +1,6 @@
 .fullpage {
 	height: calc(100vh - 80px);
-	background-color: #2c7b4e;
+	background-color: #003527;
 }
 
 .center {
@@ -48,6 +48,12 @@
 
 .input {
 	outline: none;
+}
+
+.leftLabel {
+	align-self: flex-start;
+	padding-left: 10px;
+	padding-bottom: 0;
 }
 
 /* styling for the button base */
@@ -116,9 +122,16 @@
 }
 
 .subtext {
-	padding: 0;
+	padding-top: 10px;
 	margin: 0;
 	font-size: 0.9em;
+}
+
+/* .passwordRequirements li {
+	list-style: none;
+} */
+.passwordRequirements ul li:before {
+	content: '\2713\0000a0\0000a0\0000a0\0000a0\0000a0';
 }
 
 @media (max-width: 600px) {

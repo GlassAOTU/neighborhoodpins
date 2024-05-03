@@ -1,10 +1,12 @@
-import GovernmentTable from "@/app/components/GovernmentTable";
+import GovernmentTable from '@/app/components/GovernmentTable'
 
 export default function Contact() {
 	return (
-		<>
-			{/* <h1>Resources</h1> */}
+		<div>
+			<h1 style={{ display: 'flex', justifyContent: 'center' }}>
+				Resources
+			</h1>
 			<GovernmentTable />
-		</>
+		</div>
 	)
 }

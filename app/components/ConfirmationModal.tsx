@@ -7,7 +7,7 @@ export default function ConfirmationModal({
 	point,
 	address,
 	municipality,
-	email,
+	uuid,
 	onClose,
 	onDeletePin,
 }: any) {
@@ -17,7 +17,7 @@ export default function ConfirmationModal({
 
 	const createFinalData = () => {
 		return {
-			submitted_by: email,
+			submitted_by: uuid,
 			issue_type_id: parseInt(issueSelection),
 			severity: severitySelection,
 			longitude: parseFloat(point.lng),
@@ -44,6 +44,7 @@ export default function ConfirmationModal({
 	}
 
 	const handleSubmit = () => {
+		
 		onSubmit()
 	}
 
