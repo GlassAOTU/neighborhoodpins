@@ -418,7 +418,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div ref={mapContainer} className='absolute top-0 right-0 bottom-0 left-0 min-h-screen-80' />
+				<div ref={mapContainer} className='absolute top-0 right-0 bottom-0 left-0 h-[calc(100vh-80px)]' />
 
 				{showModal && isUser && (
 					<ConfirmationModal
