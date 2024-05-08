@@ -10,7 +10,7 @@ export default function LoginPage() {
 	const [state, formAction] = useFormState(login, null)
 
 	return (
-		<div className='bg-coach-green min-h-screen-80'>
+		<div className='bg-coach-green h-dvh'>
 			<div className='flex justify-center'>
 				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
 					<div className='text-3xl mt-5 mb-10 font-bold'>Welcome back!</div>
