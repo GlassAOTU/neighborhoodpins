@@ -1,4 +1,4 @@
-// import './styles/globals.css'
+import './styles/globals.css'
 import type { Metadata } from 'next'
 import styles from './styles/Home.module.css'
 import Navbar from './components/Navbar'

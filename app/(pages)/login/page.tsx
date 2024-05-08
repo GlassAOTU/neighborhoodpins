@@ -2,53 +2,73 @@
 
 import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
-import { login, loginWithGoogle } from './actions'
+import { login } from './actions'
 import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
+import { useFormState } from 'react-dom'
 
-export default function Login() {
+export default function LoginPage() {
+	const [state, formAction] = useFormState(login, null)
+
 	return (
-		<div className={styles.fullpage}>
-			<div className={styles.center}>
-				<div className={styles.container}>
-					<h1>Welcome back!</h1>
+		<div className='bg-coach-green min-h-screen-80'>
+			<div className='flex justify-center'>
+				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
+					<div className='text-3xl mt-5 mb-10 font-bold'>Welcome back!</div>
 
 					{/* form start */}
-					<form className={styles.form}>
-						<label htmlFor="email" className={styles.leftLabel}>Email</label>
+					<form className='flex flex-col items-center gap-2.5 w-7/10'>
+						<label
+							htmlFor='email'
+							className='self-start pl-2.5 pb-0'
+						>
+							Email
+						</label>
 						<input
 							type='email'
 							name='email'
-							className={styles.input}
+							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
-						<label htmlFor="password" className={styles.leftLabel}>Password</label>
+						<label
+							htmlFor='password'
+							className='self-start pl-2.5 pt-2.5'
+						>
+							Password
+						</label>
 						<input
 							type='password'
 							name='password'
-							className={styles.input}
+							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
-						<Link href='/forgot-password' className={styles.subtext} style={{ paddingBottom: '10px' }}>Forgot your password?</Link>
+						<Link
+							href='/forgot-password'
+							className='text-sm text-blue-900 hover:text-purple-900'
+						>
+							Forgot your password?
+						</Link>
 						<button
 							type='submit'
-							formAction={login}
-							className={`${styles.button} ${styles.submit}`}
+							formAction={formAction}
+							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500'
+							// className={`${styles.button} ${styles.submit}`}
 						>
-							<strong>Sign in</strong>
+							Log in
 						</button>
-						<Link href='/signup' className={styles.subtext}>
+						<Link
+							href='/signup'
+							className='text-blue-900 hover:text-purple-900'
+						>
 							New user? Sign up!
 						</Link>
 					</form>
 					{/* form end */}
 
-					<div className={styles.otherOptions}>
-						<hr className={styles.divider} />
-						<button className={`${styles.button} ${styles.apple}`}>
-							Sign in with Apple
-						</button>
-						<LoginGoogleButton />
-					</div>
+					{/* <hr className='w-3/4' />
+					<button className={`${styles.button} ${styles.apple}`}>
+						Sign in with Apple
+					</button>
+					<LoginGoogleButton /> */}
 				</div>
 			</div>
 		</div>

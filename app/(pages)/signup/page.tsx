@@ -3,8 +3,19 @@ import Link from 'next/link'
 import styles from '../../styles/Login.module.css'
 import { signup } from './actions'
 import { useState } from 'react'
+import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
 
 export default function Signup() {
+	const [password, setPassword] = useState('')
+	const [passwordValid, setPasswordValid] = useState(false)
+	const [requirements, setRequirements] = useState({
+		length: false,
+		uppercase: false,
+		lowercase: false,
+		number: false,
+	})
+
+	// function to validate passsword
 	const validatePassword = (password: string) => {
 		const requirements = {
 			length: password.length >= 6,
@@ -16,16 +27,7 @@ export default function Signup() {
 		return { requirements, isValid }
 	}
 
-	const [requirements, setRequirements] = useState({
-		length: false,
-		uppercase: false,
-		lowercase: false,
-		number: false,
-	})
-
-	const [password, setPassword] = useState('')
-	const [passwordValid, setPasswordValid] = useState(false);
-
+	// watch password changes for validation
 	const handlePasswordChange = (e: any) => {
 		const newPassword = e.target.value
 		const validationResults = validatePassword(newPassword)
@@ -42,6 +44,7 @@ export default function Signup() {
 
 					{/* form start */}
 					<form className={styles.form}>
+						{/* name field and label */}
 						<label htmlFor='name' className={styles.leftLabel}>
 							Name
 						</label>
@@ -52,6 +55,8 @@ export default function Signup() {
 							autoComplete='off'
 							required
 						/>
+
+						{/* email field and label */}
 						<label htmlFor='email' className={styles.leftLabel}>
 							Email
 						</label>
@@ -61,6 +66,8 @@ export default function Signup() {
 							className={styles.input}
 							required
 						/>
+
+						{/* password field and label */}
 						<label htmlFor='password' className={styles.leftLabel}>
 							Password
 						</label>
@@ -72,6 +79,8 @@ export default function Signup() {
 							className={styles.input}
 							required
 						/>
+
+						{/* retry password field and label */}
 						<label
 							htmlFor='retry-password'
 							className={styles.leftLabel}
@@ -85,52 +94,44 @@ export default function Signup() {
 							required
 						/>
 
+						{/* password requirement section */}
 						<div className={styles.leftLabel}>
 							<p>Password must contain:</p>
-							<ul style={{ listStyle: 'none' }}>
+							<ul>
 								<li
 									style={{
-										fontWeight: requirements.length ? 'bold' : 'normal',
 										color: requirements.length
 											? 'green'
 											: 'red',
 									}}
 								>
-									{requirements.length ? '✓\u2003' : '✗\u2003'}
 									At least 6 characters
 								</li>
 								<li
 									style={{
-										fontWeight: requirements.uppercase ? 'bold' : 'normal',
 										color: requirements.uppercase
 											? 'green'
 											: 'red',
 									}}
 								>
-									{requirements.uppercase ? '✓\u2003' : '✗\u2003'}
 									At least one uppercase letter
 								</li>
 								<li
 									style={{
-										fontWeight: requirements.lowercase ? 'bold' : 'normal',
 										color: requirements.lowercase
 											? 'green'
 											: 'red',
 									}}
 								>
-									{requirements.lowercase ? '✓\u2003' : '✗\u2003'}
 									At least one lowercase letter
 								</li>
 								<li
 									style={{
-										fontWeight: requirements.number ? 'bold' : 'normal',
 										color: requirements.number
 											? 'green'
 											: 'red',
-										
 									}}
 								>
-									{requirements.number ? '✓\u2003' : '✗\u2003'}
 									At least one number
 								</li>
 							</ul>
@@ -155,9 +156,7 @@ export default function Signup() {
 						<button className={`${styles.button} ${styles.apple}`}>
 							Sign up with Apple
 						</button>
-						<button className={`${styles.button} ${styles.google}`}>
-							Sign up with Google
-						</button>
+						<LoginGoogleButton />
 					</div>
 				</div>
 			</div>

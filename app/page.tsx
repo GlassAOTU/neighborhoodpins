@@ -25,7 +25,9 @@ export default function Home() {
 	const [municipality, setMunicipality] = useState([])
 	const [pin, setPin] = useState<mapboxgl.Marker | null>(null)
 
-	const pinErrorToast = () => toast.error("Can't place a pin here.")
+	const pinErrorToast = () => toast.error('Can only place pins on roads.')
+	const boundsErrorToast = () =>
+		toast.error("Can't place a pin outside of boundaries.")
 
 	mapboxgl.accessToken = process.env.TOKEN
 
@@ -68,7 +70,7 @@ export default function Home() {
 					'fill-opacity': 0.1,
 				},
 			})
-			
+
 			// adds a border to the towns
 			map.addLayer({
 				id: 'towns-outline',
@@ -115,7 +117,6 @@ export default function Home() {
 			// fetches the pins from the database and populates the pin-data source
 			fetchDataAndAddToMap(map)
 
-
 			// changes the town fill when the mouse is over it
 			// map.on('mousemove', 'towns-fill', (e: any) => {
 			// 	map.setPaintProperty('towns-outline', 'line-width', 3)
@@ -150,12 +151,6 @@ export default function Home() {
 			'top-left'
 		)
 
-		// creates empty popup that will be used on click on each pin
-		const popup = new mapboxgl.Popup({
-			closeButton: true,
-			closeOnClick: false,
-		})
-
 		// changes the cursor to a pointer when the mouse is over the pins
 		map.on('mouseenter', 'pin-points', (e: any) => {
 			map.getCanvas().style.cursor = 'pointer'
@@ -164,6 +159,12 @@ export default function Home() {
 		// changes the cursor back to the default when the mouse leaves the pins
 		map.on('mouseleave', 'pin-points', () => {
 			map.getCanvas().style.cursor = ''
+		})
+
+		// creates empty popup that will be used on click on each pin
+		const popup = new mapboxgl.Popup({
+			closeButton: true,
+			closeOnClick: true,
 		})
 
 		// ran every time the user clicks on a pin
@@ -192,11 +193,18 @@ export default function Home() {
 				.setHTML(
 					`<h2 style="text-align: center;">${type_name}</h2>
 					<h3>${street}, ${town}, ${zipcode}</h3>
+					<hr/>
 					<h2 style="text-align: center;">Contact</h2>
 					<h3>${mmunicipality} - ${department}</h3>
 					<h3>${phone_number}</h3>`
 				)
 				.addTo(map)
+
+			// center the pin clicked on
+			map.flyTo({
+				center: e.features[0].geometry.coordinates,
+				duration: 1000,
+			})
 		})
 
 		// function is ran every time the user clicks on the map
@@ -220,7 +228,17 @@ export default function Home() {
 				setMunicipality(features[0].properties.name) // stores the municipality of where the mouse clicks
 				setShowModal(true) // toggles the modal bool to show either modal
 			} else {
-				pinErrorToast()
+				if (
+					features.length === 0 ||
+					features[0].source !== 'town-data'
+				) {
+					boundsErrorToast()
+				} else if (
+					features.length > 1 &&
+					features[1].sourceLayer !== 'road'
+				) {
+					pinErrorToast()
+				}
 			}
 		})
 
@@ -243,7 +261,7 @@ export default function Home() {
 				'id, latitude, longitude, issue_type_id, street_name, town_name, zipcode, municipality_name, government (municipality_name, department_name, phone_number), issues (*)'
 			)
 
-		console.log(data)
+		// console.log(data)
 
 		if (error) {
 			console.error('Error fetching data:', error)
@@ -322,31 +340,31 @@ export default function Home() {
 	}, [])
 
 	const onClose = () => setShowModal(false)
-	
+
 	const onDeletePin = () => {
 		if (pin) {
 			pin.remove()
 			setPin(null)
 		}
 	}
-	
+
 	async function reverseGeocode(longitude: string, latitude: string) {
 		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?types=address&access_token=${process.env.TOKEN}`
 		fetch(url)
-		.then((response) => response.json())
-		.then((data) => {
-			if (data.features && data.features.length > 0) {
-				const rawAddress = data.features[0].place_name
-				setAddress(cleanAddress(rawAddress))
-			} else {
-				console.log('No address data found.')
-			}
-		})
-		.catch((error) => {
-			console.error('Error fetching geocode data:', error)
-		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.features && data.features.length > 0) {
+					const rawAddress = data.features[0].place_name
+					setAddress(cleanAddress(rawAddress))
+				} else {
+					console.log('No address data found.')
+				}
+			})
+			.catch((error) => {
+				console.error('Error fetching geocode data:', error)
+			})
 	}
-	
+
 	function cleanAddress(rawAddress: any) {
 		const components = rawAddress.split(', ')
 		const street = components[0].replace(/^\d+\s/, '')
@@ -359,7 +377,49 @@ export default function Home() {
 	return (
 		<>
 			<main className={styles.main}>
-				<div ref={mapContainer} className='map-container' />
+				<div className={styles.legend}>
+					<div className={styles.mapLegend}>
+						<div className={styles.legendTitle} style={{borderBottom: '1px solid #b2b2b2'}}>Map Legend</div>
+						<div className={styles.legendItem}>
+							<div
+								className={styles.legendColor}
+								style={{ backgroundColor: '#ff7400', borderRadius: '100px' }}
+							></div>
+							<div className={styles.legendDescription}>
+								Pothole
+							</div>
+						</div>
+						<div className={styles.legendItem}>
+							<div
+								className={styles.legendColor}
+								style={{ backgroundColor: '#0cb720', borderRadius: '100px' }}
+							></div>
+							<div className={styles.legendDescription}>
+							Fallen tree
+							</div>
+						</div>
+						<div className={styles.legendItem}>
+							<div
+								className={styles.legendColor}
+								style={{ backgroundColor: '#ece624', borderRadius: '100px' }}
+							></div>
+							<div className={styles.legendDescription}>
+								Broken street light
+							</div>
+						</div>
+						<div className={styles.legendItem}>
+							<div
+								className={styles.legendColor}
+								style={{ backgroundColor: '#0c62b7', borderRadius: '100px' }}
+							></div>
+							<div className={styles.legendDescription}>
+								Flood
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ref={mapContainer} className='absolute top-0 right-0 bottom-0 left-0 min-h-screen-80' />
+
 				{showModal && isUser && (
 					<ConfirmationModal
 						point={point}
