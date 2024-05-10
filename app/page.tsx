@@ -8,11 +8,12 @@ const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
 
 import styles from './styles/Home.module.css'
 import './styles/MapControl.css'
-import ConfirmationModal from './components/ConfirmationModal'
-import LoginModal from './components/LoginModal'
+import ConfirmationModal from './components/MapPinModal'
+import LoginModal from './components/MapLoginModal'
 
 import { createClient } from './utils/supabase/client'
 import toast, { Toaster } from 'react-hot-toast'
+import MapLegend from './components/MapLegend'
 
 export default function Home() {
 	const mapContainer = useRef(null)
@@ -191,12 +192,12 @@ export default function Home() {
 			popup
 				.setLngLat(coordinates)
 				.setHTML(
-					`<h2 style="text-align: center;">${type_name}</h2>
-					<h3>${street}, ${town}, ${zipcode}</h3>
-					<hr/>
-					<h2 style="text-align: center;">Contact</h2>
-					<h3>${mmunicipality} - ${department}</h3>
-					<h3>${phone_number}</h3>`
+					`<h2 style="text-align: center; font-weight: bold; font-size: 20px; padding: 5px; background-color: #125b49; border-radius: 10px; margin: 5px 10px 10px 10px; color: white">${type_name}</h2>
+					<h3 style="font-size: 16px; text-align: center; padding-bottom: 10px">${street}, ${town}, ${zipcode}</h3>
+				
+					<h2 style="text-align: center; font-weight: bold; font-size: 20px; padding: 5px; background-color: #125b49; border-radius: 10px; margin: 5px 10px 10px 10px; color: white"">Contact</h2>
+					<h3 style="font-size: 16px; text-align: center; padding-bottom: 10px">${mmunicipality} ${department}</h3>
+					<h3 style="font-size: 16px; text-align: center; font-weight: bold"><u>${phone_number}</u></h3>`
 				)
 				.addTo(map)
 
@@ -377,49 +378,8 @@ export default function Home() {
 	return (
 		<>
 			<main className={styles.main}>
-				<div className={styles.legend}>
-					<div className={styles.mapLegend}>
-						<div className={styles.legendTitle} style={{borderBottom: '1px solid #b2b2b2'}}>Map Legend</div>
-						<div className={styles.legendItem}>
-							<div
-								className={styles.legendColor}
-								style={{ backgroundColor: '#ff7400', borderRadius: '100px' }}
-							></div>
-							<div className={styles.legendDescription}>
-								Pothole
-							</div>
-						</div>
-						<div className={styles.legendItem}>
-							<div
-								className={styles.legendColor}
-								style={{ backgroundColor: '#0cb720', borderRadius: '100px' }}
-							></div>
-							<div className={styles.legendDescription}>
-							Fallen tree
-							</div>
-						</div>
-						<div className={styles.legendItem}>
-							<div
-								className={styles.legendColor}
-								style={{ backgroundColor: '#ece624', borderRadius: '100px' }}
-							></div>
-							<div className={styles.legendDescription}>
-								Broken street light
-							</div>
-						</div>
-						<div className={styles.legendItem}>
-							<div
-								className={styles.legendColor}
-								style={{ backgroundColor: '#0c62b7', borderRadius: '100px' }}
-							></div>
-							<div className={styles.legendDescription}>
-								Flood
-							</div>
-						</div>
-					</div>
-				</div>
-				<div ref={mapContainer} className='absolute top-0 right-0 bottom-0 left-0 h-[calc(100vh-80px)]' />
-
+				<MapLegend />
+				<div ref={mapContainer} className='fixed top-0 right-0 bottom-0 left-0 h-[calc(100vh-80px)] z-1' />
 				{showModal && isUser && (
 					<ConfirmationModal
 						point={point}

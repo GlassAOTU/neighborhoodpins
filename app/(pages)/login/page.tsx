@@ -1,19 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import styles from '../../styles/Login.module.css'
 import { login } from './actions'
 import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
 import { useFormState } from 'react-dom'
 
 export default function LoginPage() {
-	const [state, formAction] = useFormState(login, null)
+	// const [state, formAction] = useFormState(login, null)
 
 	return (
-		<div className='bg-coach-green h-dvh'>
+		<div className='bg-coach-green min-h-screen-80'>
 			<div className='flex justify-center'>
 				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
-					<div className='text-3xl mt-5 mb-10 font-bold'>Welcome back!</div>
+					<span className='text-3xl mt-5 mb-10 font-bold'>
+						Welcome back!
+					</span>
 
 					{/* form start */}
 					<form className='flex flex-col items-center gap-2.5 w-7/10'>
@@ -49,9 +50,8 @@ export default function LoginPage() {
 						</Link>
 						<button
 							type='submit'
-							formAction={formAction}
+							formAction={login}
 							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500'
-							// className={`${styles.button} ${styles.submit}`}
 						>
 							Log in
 						</button>

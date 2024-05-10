@@ -7,7 +7,12 @@
     height: calc(100vh - 80px); /* Fallback height */
 }
 
-.mapboxgl-control-container {
+/* .mapboxgl-control-container {
     z-index: 2;
     position: relative;
+} */
+
+.mapboxgl-popup-close-button {
+    font-size: x-large;
+    color: darkred;
 }

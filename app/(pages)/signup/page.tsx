@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import styles from '../../styles/Login.module.css'
 import { signup } from './actions'
 import { useState } from 'react'
 import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
@@ -37,38 +36,49 @@ export default function Signup() {
 	}
 
 	return (
-		<div className={styles.fullpage}>
-			<div className={styles.center}>
-				<div className={styles.container}>
-					<h1>First time user?</h1>
+		<div className='bg-coach-green min-h-screen-80'>
+			<div className='flex justify-center'>
+				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
+					<div className='text-3xl mt-5 mb-10 font-bold'>
+						First time user?
+					</div>
 
 					{/* form start */}
-					<form className={styles.form}>
+					<form className='flex flex-col items-center gap-2.5 w-7/10'>
 						{/* name field and label */}
-						<label htmlFor='name' className={styles.leftLabel}>
+						<label
+							htmlFor='name'
+							className='self-start pl-2.5 pb-0'
+						>
 							Name
 						</label>
 						<input
 							type='text'
 							name='name'
-							className={styles.input}
+							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							autoComplete='off'
 							required
 						/>
 
 						{/* email field and label */}
-						<label htmlFor='email' className={styles.leftLabel}>
+						<label
+							htmlFor='email'
+							className='self-start pl-2.5 pb-0'
+						>
 							Email
 						</label>
 						<input
 							type='email'
 							name='email'
-							className={styles.input}
+							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
 
 						{/* password field and label */}
-						<label htmlFor='password' className={styles.leftLabel}>
+						<label
+							htmlFor='password'
+							className='self-start pl-2.5 pb-0'
+						>
 							Password
 						</label>
 						<input
@@ -76,28 +86,30 @@ export default function Signup() {
 							name='password'
 							value={password}
 							onChange={handlePasswordChange}
-							className={styles.input}
+							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
 
 						{/* retry password field and label */}
 						<label
 							htmlFor='retry-password'
-							className={styles.leftLabel}
+							className='self-start pl-2.5 pb-0'
 						>
 							Confirm Password
 						</label>
 						<input
 							type='password'
 							name='retry-password'
-							className={styles.input}
+							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
 
 						{/* password requirement section */}
-						<div className={styles.leftLabel}>
-							<p>Password must contain:</p>
-							<ul>
+						<div>
+							<p className='self-start pl-2.5 pt-2.5'>
+								Password must contain:
+							</p>
+							<ul className='list-disc list-inside'>
 								<li
 									style={{
 										color: requirements.length
@@ -141,23 +153,26 @@ export default function Signup() {
 							type='submit'
 							disabled={!passwordValid}
 							formAction={signup}
-							className={`${styles.button} ${styles.submit}`}
+							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500'
 						>
 							<strong>Sign up</strong>
 						</button>
+
+						<Link
+							href='/login'
+							className='text-blue-900 hover:text-purple-900'
+						>
+							Already have an account? Log in!
+						</Link>
 					</form>
 
-					<Link href='/login' className={styles.subtext}>
-						Already have an account? Log in!
-					</Link>
-
-					<div className={styles.otherOptions}>
+					{/* <div className={styles.otherOptions}>
 						<hr className={styles.divider} />
 						<button className={`${styles.button} ${styles.apple}`}>
 							Sign up with Apple
 						</button>
 						<LoginGoogleButton />
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

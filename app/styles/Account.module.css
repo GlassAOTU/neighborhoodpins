@@ -48,16 +48,6 @@
 	justify-content: center;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* ! styling for checked slider */
 .switch {
 	--secondary-container: #aadd66;
@@ -120,13 +110,6 @@ input:focus + .slider {
 input:checked + .slider:before {
 	transform: translateX(1.9em);
 }
-
-
-
-
-
-
-
 
 /* aligns the label to the left of the form */
 .formAlign {

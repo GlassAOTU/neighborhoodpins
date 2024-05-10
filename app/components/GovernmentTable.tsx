@@ -67,18 +67,7 @@ function GovernmentTable() {
 	if (error) return <p>Error loading data!</p>
 
 	return (
-		<div className='my-[100px] container'>
-			<div className='text-center'>
-				<h2 className='relative inline-block text-[40px] text-[#1E1E1E] font-bold lg:text-[70px]'>
-					Resources{' '}
-					<Image
-						src={Underline}
-						alt=''
-						className='absolute left-0 bottom-0'
-					/>
-				</h2>
-			</div>
-
+		<div className='my-[50px] container'>
 			<form className='mt-8 relative lg:mx-20' onSubmit={onSearch}>
 				<input
 					type='text'
