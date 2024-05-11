@@ -2,31 +2,33 @@
 .navbar {
 	height: 80px;
 	background-color: #125b49;
+	background-image: linear-gradient(#0f4738, #125b49);
 	position: relative;
 	z-index: 5;
 }
 
 .container {
 	position: relative;
+	display: flex;
 	max-width: 100vw;
 	margin: 0 auto;
 	padding: 0 15px;
-	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-shrink: 1;
 	height: 100%;
 	z-index: 5;
 }
 
 /* aligns the logo to be vertically centered in the navbar */
-.logo {
+/* .logo {
 	position: relative;
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
 	margin-top: 5px;
-}
+} */
 
 /* don't display the hamburger menu on desktop */
 .menuIcon {
@@ -36,6 +38,7 @@
 /* makes the list horizontal and removes dots */
 .navElements ul {
 	display: flex;
+	flex-shrink: 1;
 	justify-content: space-between;
 	list-style-type: none;
 	align-items: baseline;
@@ -58,7 +61,8 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
 }
 
 /* ! colors for the hovered links */
@@ -67,7 +71,8 @@
 	color: #aadd66;
 	background-color: #003527;
 	/* box-shadow: inset 0 0 0 2px #266944; */
-	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
 }
 
 /* ! colors for the clicked links */
@@ -100,7 +105,7 @@
 	display: inline-block;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1380px) {
 	.logo {
 		position: relative;
 		display: flex;
@@ -118,7 +123,6 @@
 
 /* for when screen width is below 1000 pixels */
 @media screen and (max-width: 1000px) {
-
 	.navElements ul a {
 		color: #125b49;
 	}
@@ -135,24 +139,16 @@
 
 	.navElements {
 		position: absolute;
+		margin: 5px;
+		border-radius: 15px;
 		right: 0;
 		top: 80px;
 		background-color: #eceabe;
 		width: 0px;
-		height: calc(100vh - 80px);
+		height: 285px;
 		transition: all 0.25s ease-in-out;
 		overflow: hidden;
 		z-index: 2;
-	}
-
-	.logo {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		margin-top: 4px;
-		max-width: 80%;
 	}
 
 	.active {
@@ -162,6 +158,7 @@
 	.navElements ul {
 		display: flex;
 		flex-direction: column;
+		padding-left: 20px;
 	}
 
 	.navElements ul li {

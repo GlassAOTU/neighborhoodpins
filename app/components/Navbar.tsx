@@ -21,14 +21,22 @@ export default function Navbar({ children }: any) {
 		<>
 			<nav className={styles.navbar}>
 				<div className={styles.container}>
-					<div className={styles.logo}>
-						<Link href='/'>
+					<div className='flex'>
+						<Link href='/' className='flex flex-row mr-3 gap-2'>
 							<Image
-								className={styles.logo}
+								src='../icon.svg'
+								alt='NeighborhoodPins icon'
+								width={64}
+								height={64}
+								className='shrink-1'
+								priority
+							/>
+							<Image
 								src='../logo.svg'
 								alt='NeighborhoodPins logo'
 								width={400}
 								height={80}
+								className='mt-2 shrink-1 min-w-0'
 								priority
 							/>
 						</Link>
@@ -56,7 +64,7 @@ export default function Navbar({ children }: any) {
 									href='/'
 									className={`${
 										isActive('/') ? `${styles.active}` : ''
-									} ${styles.centerNavButton}`} 
+									} ${styles.centerNavButton}`}
 								>
 									<span className={styles.icon}>
 										<svg
@@ -73,9 +81,9 @@ export default function Navbar({ children }: any) {
 							</li>
 							<li>
 								<Link
-									href='/tracker'
+									href='/issues'
 									className={`${
-										isActive('/tracker')
+										isActive('/issues')
 											? `${styles.active}`
 											: ''
 									} ${styles.centerNavButton}`}
@@ -130,18 +138,16 @@ export default function Navbar({ children }: any) {
 									} ${styles.centerNavButton}`}
 								>
 									<span className={styles.icon}>
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										viewBox='0 0 24 24'
-										fill='currentColor'
-										className={styles.svgIcon}
-									>
-										<path d='M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z'></path>
-									</svg>
-										</span>
-									<span className={styles.text}>
-										About
+										<svg
+											xmlns='http://www.w3.org/2000/svg'
+											viewBox='0 0 24 24'
+											fill='currentColor'
+											className={styles.svgIcon}
+										>
+											<path d='M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z'></path>
+										</svg>
 									</span>
+									<span className={styles.text}>About</span>
 								</Link>
 							</li>
 							<li>

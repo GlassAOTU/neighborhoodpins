@@ -28,7 +28,7 @@ export default function Home() {
 
 	const pinErrorToast = () => toast.error('Can only place pins on roads.')
 	const boundsErrorToast = () =>
-		toast.error("Can't place a pin outside of boundaries.")
+		toast.error("Can't place a pin outside of bounds.")
 
 	mapboxgl.accessToken = process.env.TOKEN
 
@@ -194,7 +194,6 @@ export default function Home() {
 				.setHTML(
 					`<h2 style="text-align: center; font-weight: bold; font-size: 20px; padding: 5px; background-color: #125b49; border-radius: 10px; margin: 5px 10px 10px 10px; color: white">${type_name}</h2>
 					<h3 style="font-size: 16px; text-align: center; padding-bottom: 10px">${street}, ${town}, ${zipcode}</h3>
-				
 					<h2 style="text-align: center; font-weight: bold; font-size: 20px; padding: 5px; background-color: #125b49; border-radius: 10px; margin: 5px 10px 10px 10px; color: white"">Contact</h2>
 					<h3 style="font-size: 16px; text-align: center; padding-bottom: 10px">${mmunicipality} ${department}</h3>
 					<h3 style="font-size: 16px; text-align: center; font-weight: bold"><u>${phone_number}</u></h3>`

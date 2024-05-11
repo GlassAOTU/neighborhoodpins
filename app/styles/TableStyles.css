@@ -8,8 +8,8 @@
 }
 
 .ka-table th {
-	background-color: #f2f2f2; /* Light grey background for headers */
-	color: #333; /* Dark text for contrast */
+	background-color: #379453; /* Light grey background for headers */
+	color: #ffffff; /* Dark text for contrast */
 	padding: 8px; /* Padding around header text */
 	border: 1px solid #ddd; /* Light borders for each cell */
 }
@@ -21,17 +21,17 @@
 }
 
 .ka-table tr:nth-child(even) {
-	background-color: #f9f9f9; /* Zebra striping for rows */
+	background-color: #e4f0e0; /* Zebra striping for rows */
 }
 
 .ka-table tr:hover {
-	background-color: rgb(221, 255, 236); /* Highlight on hover */
+	background-color: rgb(202, 235, 204); /* Highlight on hover */
 }
 
 .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .top-element {
@@ -47,11 +47,11 @@
 }
 
 .top-element {
-    margin: 0 auto;
+	margin: 0 auto;
 	margin-top: 20px;
-    margin-bottom: 20px;
-    display: block;
-    width: 30%;
+	margin-bottom: 20px;
+	display: block;
+	width: 30%;
 }
 
 .top-element:focus {
@@ -59,8 +59,21 @@
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for emphasis */
 }
 
-@media screen and (max-width: 1200px) {
-	
+@media screen and (max-width: 900px) {
+	.ka-table {
+		table,
+		thead,
+		tbody,
+		th,
+		td,
+		tr {
+			display: block;
+		}
 
-
+		thead {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		  }
+	}
 }

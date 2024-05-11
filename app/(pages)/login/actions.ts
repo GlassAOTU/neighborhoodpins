@@ -4,23 +4,27 @@ import { redirect } from 'next/navigation'
 import { createClient } from '../../utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
-export async function login(formData: any) {
+type FormState = {
+	message: string
+}
+
+export async function login(prevState: FormState, formData: FormData) {
 	const supabase = createClient()
 	const data = {
-		email: formData.get('email'),
-		password: formData.get('password'),
+		email: formData.get('email') as string,
+		password: formData.get('password') as string,
 	}
 
 	const { error } = await supabase.auth.signInWithPassword(data)
 
-	if (error) {
-		console.log(error)
-		return error
-	} else {
+	const signInRedirect = () => {
 		revalidatePath('/', 'layout')
 		redirect('/')
 	}
-	
+
+	return {
+		message: error ? error.message : signInRedirect(),
+	}
 }
 
 export async function loginWithGoogle() {
@@ -29,8 +33,8 @@ export async function loginWithGoogle() {
 	const { error } = await supabase.auth.signInWithOAuth({
 		provider: 'google',
 		options: {
-			redirectTo: '/'
-		}
+			redirectTo: '/',
+		},
 	})
 
 	if (error) {

@@ -7,7 +7,7 @@ export default function Contact() {
 		<main className='flex flex-col items-center'>
 			<div className='text-center'>
 				<h2 className='relative inline-block text-[40px] text-[#1E1E1E] font-bold lg:text-[70px] mt-10'>
-					Resources{' '}
+					Resources
 					<Image
 						src={Underline}
 						alt=''
@@ -15,7 +15,6 @@ export default function Contact() {
 					/>
 				</h2>
 			</div>
-
 			<GovernmentTable />
 		</main>
 	)

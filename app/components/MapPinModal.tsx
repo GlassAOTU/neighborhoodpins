@@ -1,6 +1,7 @@
 // components/Modal.js
 import React, { useState } from 'react'
 import { submitPin } from '../actions/supabase'
+import styles from '../styles/Modals.module.css'
 
 export default function MapPinModal({
 	point,
@@ -56,9 +57,10 @@ export default function MapPinModal({
 
 	return (
 		<>
-			{/* // style for the transparent background */}
+			<div className={styles.background}>
+				{/* // style for the transparent background */}
 			<div
-				className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-100'
+				className='fixed top-0 left-0 w-full h-full flex items-center justify-center'
 				// close modal if the background is clicked on
 				onClick={handleCancel}
 			>
@@ -222,6 +224,7 @@ export default function MapPinModal({
 					</div>
 					{/* </div> */}
 				</div>
+			</div>
 			</div>
 		</>
 	)

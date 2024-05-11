@@ -1,18 +1,41 @@
 'use client'
 
-import { useFormState } from "react-dom"
-import { sendForgotPassword } from "./actions"
+import { createClient } from '@/app/utils/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useFormState } from 'react-dom'
+import { changeName } from './actions'
 
-export default function ForgotPassword() {
+export default function Name() {
+	const router = useRouter()
 
-    const [message, submitForm] = useFormState(sendForgotPassword, { message: '' })
+	const [message, submitForm] = useFormState(changeName, { message: '' })
+
+	const [userData, setUserData] = useState<any>({
+		user: {
+			user_metadata: { name: '' },
+		},
+	})
+
+	useEffect(() => {
+		async function fetchUserData() {
+			const supabase = createClient()
+			const { data } = await supabase.auth.getUser()
+			if (!data.user) {
+				router.push('/login')
+			}
+			setUserData(data)
+		}
+
+		fetchUserData()
+	}, [])
 
 	return (
 		<div className='bg-coach-green min-h-screen-80'>
 			<div className='flex justify-center'>
 				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
 					<span className='text-3xl mt-5 mb-10 font-bold'>
-						Forgot password?
+						Change Name
 					</span>
 
 					<form
@@ -20,14 +43,15 @@ export default function ForgotPassword() {
 						action={submitForm}
 					>
 						<label
-							htmlFor='email'
+							htmlFor='name'
 							className='self-start pl-2.5 pb-0'
 						>
-							Recovery email address
+							New Name
 						</label>
 						<input
 							type='text'
-							name='email'
+							name='name'
+							placeholder={userData.user.user_metadata.name}
 							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>

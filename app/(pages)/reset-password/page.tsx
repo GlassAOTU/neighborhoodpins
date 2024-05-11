@@ -1,11 +1,19 @@
 'use client'
-import Link from 'next/link'
-import { signup } from './actions'
-import { useState } from 'react'
-import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useFormState } from "react-dom"
+import { resetPassword } from "./action"
+import { createClient } from "@/app/utils/supabase/client"
 
-export default function Signup() {
+export default function ResetPassword() {
+
+    const router = useRouter()
+	const [message, submitForm] = useFormState(resetPassword, { message: '' })
+	const [userData, setUserData] = useState<any>({
+		password: '',
+	})
 	const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 	const [passwordValid, setPasswordValid] = useState(false)
 	const [requirements, setRequirements] = useState({
 		length: false,
@@ -21,6 +29,7 @@ export default function Signup() {
 			uppercase: /[A-Z]/.test(password),
 			lowercase: /[a-z]/.test(password),
 			number: /[0-9]/.test(password),
+            matching: password === confirmPassword
 		}
 		const isValid = Object.values(requirements).every(Boolean) // Check if all requirements are true
 		return { requirements, isValid }
@@ -35,51 +44,35 @@ export default function Signup() {
 		setPasswordValid(validationResults.isValid)
 	}
 
-	return (
+	useEffect(() => {
+		async function fetchUserData() {
+			const supabase = createClient()
+			const { data } = await supabase.auth.getUser()
+			if (!data.user) {
+				router.push('/login')
+			}
+			setUserData(data)
+		}
+
+		fetchUserData()
+	}, [])
+    return (
 		<div className='bg-coach-green min-h-screen-80'>
 			<div className='flex justify-center'>
 				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
 					<span className='text-3xl mt-5 mb-10 font-bold'>
-						First time user?
+						Reset Password
 					</span>
 
-					{/* form start */}
-					<form className='flex flex-col items-center gap-2.5 w-7/10'>
-						{/* name field and label */}
-						<label
-							htmlFor='name'
-							className='self-start pl-2.5 pb-0'
-						>
-							Name
-						</label>
-						<input
-							type='text'
-							name='name'
-							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
-							autoComplete='off'
-							required
-						/>
-
-						{/* email field and label */}
-						<label
-							htmlFor='email'
-							className='self-start pl-2.5 pb-0'
-						>
-							Email
-						</label>
-						<input
-							type='email'
-							name='email'
-							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
-							required
-						/>
-
-						{/* password field and label */}
+					<form
+						className='flex flex-col items-center gap-2.5 w-7/10'
+						action={submitForm}
+					>
 						<label
 							htmlFor='password'
 							className='self-start pl-2.5 pb-0'
 						>
-							Password
+							New Password
 						</label>
 						<input
 							type='password'
@@ -89,9 +82,7 @@ export default function Signup() {
 							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
-
-						{/* confirm password field and label */}
-						<label
+						{/* <label
 							htmlFor='confirm-password'
 							className='self-start pl-2.5 pb-0'
 						>
@@ -102,12 +93,11 @@ export default function Signup() {
 							name='confirm-password'
 							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
-						/>
+						/> */}
 
-						{/* password requirement section */}
 						<div>
 							<p className='self-start pl-2.5 pt-2.5'>
-								Password must be:
+								Password must:
 							</p>
 							<ul className='list-disc list-inside'>
 								<li
@@ -150,29 +140,27 @@ export default function Signup() {
 						</div>
 
 						<button
+							className='bg-last-of-lettuce border-0 px-5 py-2 text-coach-green rounded-lg hover:bg-evergreen hover:text-white-asparagus transition ease-in-out'
 							type='submit'
-							disabled={!passwordValid}
-							formAction={signup}
-							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500 transition ease-in-out'
 						>
-							<strong>Sign up</strong>
+							<div className='flex flex-row'>
+								<svg
+									xmlns='http://www.w3.org/2000/svg'
+									viewBox='0 0 24 24'
+									fill='currentColor'
+									className='flex w-5 mr-1'
+								>
+									<path d='M4 3H18L20.7071 5.70711C20.8946 5.89464 21 6.149 21 6.41421V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM7 4V9H16V4H7ZM6 12V19H18V12H6ZM13 5H15V8H13V5Z'></path>
+								</svg>
+								<span className='flex'>Save</span>
+							</div>
 						</button>
-
-						<Link
-							href='/login'
-							className='text-blue-900 hover:text-purple-900'
-						>
-							Already have an account? Log in!
-						</Link>
 					</form>
-
-					{/* <div className={styles.otherOptions}>
-						<hr className={styles.divider} />
-						<button className={`${styles.button} ${styles.apple}`}>
-							Sign up with Apple
-						</button>
-						<LoginGoogleButton />
-					</div> */}
+					{message.message && (
+						<div className='bg-green-300 mt-5 p-3 rounded-xl'>
+							{message.message}
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

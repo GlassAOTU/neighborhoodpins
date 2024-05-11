@@ -1,5 +1,6 @@
 .accountButton {
     font-size: 18px;
+    text-wrap: nowrap;
     background-color: #051914;
     border: 0;
     padding: 8px 10px;

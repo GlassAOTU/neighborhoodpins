@@ -51,7 +51,7 @@ export default function LoginPage() {
 						<button
 							type='submit'
 							formAction={login}
-							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500'
+							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500 transition ease-in-out'
 						>
 							Log in
 						</button>

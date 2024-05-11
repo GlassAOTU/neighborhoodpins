@@ -1,18 +1,41 @@
 'use client'
 
-import { useFormState } from "react-dom"
-import { sendForgotPassword } from "./actions"
+import { createClient } from '@/app/utils/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useFormState } from 'react-dom'
+import { changeEmail } from './actions'
 
-export default function ForgotPassword() {
+export default function Email() {
+	const router = useRouter()
 
-    const [message, submitForm] = useFormState(sendForgotPassword, { message: '' })
+	const [message, submitForm] = useFormState(changeEmail, { message: '' })
+
+	const [userData, setUserData] = useState<any>({
+		user: {
+			email: '',
+		},
+	})
+
+	useEffect(() => {
+		async function fetchUserData() {
+			const supabase = createClient()
+			const { data } = await supabase.auth.getUser()
+			if (!data.user) {
+				router.push('/login')
+			}
+			setUserData(data)
+		}
+
+		fetchUserData()
+	}, [])
 
 	return (
 		<div className='bg-coach-green min-h-screen-80'>
 			<div className='flex justify-center'>
 				<div className='mx-auto my-12 p-7 bg-white rounded-2xl w-1/5 min-w-[400px] h-1/2 flex flex-col items-center shadow-xl'>
 					<span className='text-3xl mt-5 mb-10 font-bold'>
-						Forgot password?
+						Change Email
 					</span>
 
 					<form
@@ -23,11 +46,12 @@ export default function ForgotPassword() {
 							htmlFor='email'
 							className='self-start pl-2.5 pb-0'
 						>
-							Recovery email address
+							New Email Address
 						</label>
 						<input
 							type='text'
 							name='email'
+							placeholder={userData.user.email}
 							className='w-full box-border border border-neutral-400 rounded-2xl p-2.5 text-lg focus:outline-none focus:ring-1 focus:ring-evergreen'
 							required
 						/>
@@ -50,7 +74,7 @@ export default function ForgotPassword() {
 						</button>
 					</form>
 					{message.message && (
-						<div className='bg-green-300 mt-5 p-3 rounded-xl'>
+						<div className='bg-green-300 mt-5 p-3 rounded-xl text-center'>
 							{message.message}
 						</div>
 					)}
