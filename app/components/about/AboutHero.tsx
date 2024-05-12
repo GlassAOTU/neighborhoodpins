@@ -27,10 +27,10 @@ const AboutHero = () => {
 							/>
 						</h1>
 						<p className='mt-[15px] max-w-[595px] text-2xl text-[#474747] lg:text-[22px] lg:mt-[35px]'>
-							We're a technology platform that is focused on
+							{`We're a technology platform that is focused on
 							building a community of members that each play a
 							part in improving our daily lives across Long
-							Island.
+							Island.`}
 						</p>
 					</div>
 				</div>

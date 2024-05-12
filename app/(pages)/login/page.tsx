@@ -58,7 +58,7 @@ export default function LoginPage() {
 							href='/signup'
 							className='text-blue-900 hover:text-purple-900'
 						>
-							New user? Sign up!
+							{`Don't have an account? Sign up!`}
 						</Link>
 					</form>
 					{message?.message && (
