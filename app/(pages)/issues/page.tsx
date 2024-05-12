@@ -15,7 +15,7 @@ export default async function Tracker({ government }: any) {
                         className='absolute left-0 bottom-0'
                     />
                 </h2>
-                <HistoryTable />
+                <IssueTable />
             </div>
         </main>
   );
