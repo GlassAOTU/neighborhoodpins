@@ -40,11 +40,11 @@ export default function Home() {
 			zoom: 10,
 			minZoom: 5,
 			maxZoom: 20,
+			maxPitch: 0,
 			maxBounds: [
 				[-74.056, 40.535],
 				[-71.85, 41.197],
 			],
-			maxPitch: 0,
 		})
 
 		// loads in the GeoJSON town border data
@@ -115,18 +115,23 @@ export default function Home() {
 				},
 			})
 
+			const lastPin = localStorage.getItem('lastPin')
+			if (lastPin) {
+				const { longitude, latitude } = JSON.parse(lastPin)
+				map.flyTo({
+					center: [longitude, latitude],
+					zoom: 15,
+					duration: 2000
+				})
+
+				// Remove the lastPin from localStorage after flying to it
+				map.once('moveend', () => {
+					localStorage.removeItem('lastPin')
+				})
+			}
+
 			// fetches the pins from the database and populates the pin-data source
 			fetchDataAndAddToMap(map)
-
-			// changes the town fill when the mouse is over it
-			// map.on('mousemove', 'towns-fill', (e: any) => {
-			// 	map.setPaintProperty('towns-outline', 'line-width', 3)
-			// })
-
-			// changes the town fill when the mouse leaves it
-			// map.on('mouseleave', 'towns-fill', () => {
-			// 	map.setPaintProperty('towns-outline', 'line-width', 0)
-			// })
 		})
 
 		map.doubleClickZoom.disable()
@@ -206,6 +211,8 @@ export default function Home() {
 				duration: 1000,
 			})
 		})
+
+		map.once
 
 		// function is ran every time the user clicks on the map
 		map.on('click', (e: any) => {
@@ -311,9 +318,10 @@ export default function Home() {
 		const fetchData = async () => {
 			const supabase = createClient()
 			const { data } = await supabase.auth.getUser()
+			// checkks whether a user is logged in
 			if (data.user) {
-				setIsUser(true)
-				setUserUUID(data.user.id!)
+				setIsUser(true) // sets the user bool to true
+				setUserUUID(data.user.id!) // sets the user uuid for the database
 			}
 		}
 
@@ -375,25 +383,26 @@ export default function Home() {
 	}
 
 	return (
-		<>
-			<main className={styles.main}>
-				<MapLegend />
-				<div ref={mapContainer} className='fixed top-0 right-0 bottom-0 left-0 h-[calc(100vh-80px)] z-1' />
-				{showModal && isUser && (
-					<ConfirmationModal
-						point={point}
-						address={address}
-						municipality={municipality}
-						uuid={userUUID}
-						onClose={onClose}
-						onDeletePin={onDeletePin}
-					/>
-				)}
-				{showModal && !isUser && (
-					<LoginModal onClose={onClose} onDeletePin={onDeletePin} />
-				)}
-				<Toaster />
-			</main>
-		</>
+		<main className={styles.main}>
+			<MapLegend />
+			<div
+				ref={mapContainer}
+				className='fixed top-0 right-0 bottom-0 left-0 h-[calc(100vh-80px)] z-1'
+			/>
+			{showModal && isUser && (
+				<ConfirmationModal
+					point={point}
+					address={address}
+					municipality={municipality}
+					uuid={userUUID}
+					onClose={onClose}
+					onDeletePin={onDeletePin}
+				/>
+			)}
+			{showModal && !isUser && (
+				<LoginModal onClose={onClose} onDeletePin={onDeletePin} />
+			)}
+			<Toaster />
+		</main>
 	)
 }

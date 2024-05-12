@@ -2,7 +2,7 @@
 .navbar {
 	height: 80px;
 	background-color: #125b49;
-	background-image: linear-gradient(#0f4738, #125b49);
+	background-image: linear-gradient(#0f4d3d, #125b49);
 	position: relative;
 	z-index: 5;
 }
@@ -78,10 +78,10 @@
 /* ! colors for the clicked links */
 .navElements ul a:active {
 	color: #aadd66;
-	background-color: #003527;
+	background-color: #00251b;
 	border-radius: 15px;
-	box-shadow: inset 0 0 0 2px #051914;
-	transition: box-shadow 0.2s ease-in-out;
+	/* box-shadow: inset 0 0 0 2px #051914; */
+	/* transition: box-shadow 0.2s ease-in-out; */
 }
 
 /* ! colors for the active links */
@@ -90,7 +90,7 @@
 	color: #081914;
 	background-color: #aadd66;
 	border-radius: 15px;
-	box-shadow: 0 0 5px 2px #00000065;
+	/* box-shadow: 0 0 5px 2px #00000065; */
 }
 
 .svgIcon {

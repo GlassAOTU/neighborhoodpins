@@ -68,6 +68,7 @@ function GovernmentTable() {
 
 	return (
 		<div className='my-[50px] container'>
+			{/* search bar */}
 			<form className='mt-8 relative lg:mx-20' onSubmit={onSearch}>
 				<input
 					type='text'
@@ -84,6 +85,7 @@ function GovernmentTable() {
 				<IoIosSearch className='text-2xl text-[#747474] absolute left-3 top-3' />
 			</form>
 
+			{/* government cards */}
 			<div className='mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3'>
 				{filteredData.length ? (
 					filteredData.map((item, index) => (
@@ -95,6 +97,7 @@ function GovernmentTable() {
 									'9px -9px 16px -5px rgba(102, 115, 121, 0.08)',
 							}}
 						>
+							{/* Municipality */}
 							<div className='border-b border-[#E6E6E6] flex'>
 								<div className='w-[75px] h-[75px] bg-[#125B49] rounded flex justify-center items-center'>
 									<HiOutlineHome className='text-white text-3xl' />
@@ -158,6 +161,7 @@ function GovernmentTable() {
 								</div>
 							</div>
 
+							{/* Website */}
 							<div className='h-[75px] overflow-hidden py-4 px-5 flex items-center gap-3 bg-[#125B49] text-white'>
 								<div className='flex gap-2.5'>
 									<HiOutlineHome />

@@ -8,7 +8,7 @@
 }
 
 .ka-table th {
-	background-color: #379453; /* Light grey background for headers */
+	background-color: #125B49; /* Light grey background for headers */
 	color: #ffffff; /* Dark text for contrast */
 	padding: 8px; /* Padding around header text */
 	border: 1px solid #ddd; /* Light borders for each cell */
@@ -21,11 +21,11 @@
 }
 
 .ka-table tr:nth-child(even) {
-	background-color: #e4f0e0; /* Zebra striping for rows */
+	background-color: #125b4925; /* Zebra striping for rows */
 }
 
 .ka-table tr:hover {
-	background-color: rgb(202, 235, 204); /* Highlight on hover */
+	background-color: #125b493d; /* Highlight on hover */
 }
 
 .main-container {

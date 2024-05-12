@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react'
 import { createClient } from '../utils/supabase/client'
 import { Table, DataType, SortingMode } from 'ka-table'
 
+// ! change search bar to match resources page
+// ! add website column
+// ! add severity column
+
 export default function IssueTable() {
 	const [data, setData] = useState<any>([])
 	const [loading, setLoading] = useState(true)
@@ -102,8 +106,8 @@ export default function IssueTable() {
 				onChange={(event) => {
 					setSearchText(event.currentTarget.value)
 				}}
-				className='top-element'
-				placeholder='Search...'
+				className='top-element rounded-2xl'
+				placeholder='Search'
 			/>
 			<Table {...tableProps} />
 		</div>
