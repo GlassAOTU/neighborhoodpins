@@ -25,12 +25,8 @@ export async function login(prevState: FormState, formData: FormData) {
 		redirect('/')
 	}
 
-	if (user?.confirmed_at) {
-		return {
-			message: error ? error.message : signInRedirect(),
-		}
-	} else {
-		return { message: 'Verify your email to log in' }
+	return {
+		message: error ? error.message : signInRedirect(),
 	}
 }
 

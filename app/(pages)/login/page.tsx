@@ -61,7 +61,7 @@ export default function LoginPage() {
 							New user? Sign up!
 						</Link>
 					</form>
-					{message.message && (
+					{message?.message && (
 						<div className='bg-red-300 ring-2 ring-red-600 mt-5 p-3 rounded-xl text-center'>
 							{message.message}
 						</div>
