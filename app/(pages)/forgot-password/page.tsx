@@ -23,7 +23,7 @@ export default function ForgotPassword() {
 							htmlFor='email'
 							className='self-start pl-2.5 pb-0'
 						>
-							Recovery email address
+							Account email address
 						</label>
 						<input
 							type='text'
