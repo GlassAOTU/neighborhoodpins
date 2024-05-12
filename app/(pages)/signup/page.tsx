@@ -1,10 +1,13 @@
 'use client'
 import Link from 'next/link'
-import { signup } from './actions'
+import { signUp } from './actions'
 import { useState } from 'react'
 import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
+import { useFormState } from 'react-dom'
 
 export default function Signup() {
+	const [message, submitForm] = useFormState(signUp, { message: '' })
+
 	const [password, setPassword] = useState('')
 	const [passwordValid, setPasswordValid] = useState(false)
 	const [requirements, setRequirements] = useState({
@@ -44,7 +47,7 @@ export default function Signup() {
 					</span>
 
 					{/* form start */}
-					<form className='flex flex-col items-center gap-2.5 w-7/10'>
+					<form className='flex flex-col items-center gap-2.5 w-7/10' action={submitForm}>
 						{/* name field and label */}
 						<label
 							htmlFor='name'
@@ -152,7 +155,6 @@ export default function Signup() {
 						<button
 							type='submit'
 							disabled={!passwordValid}
-							formAction={signup}
 							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500 transition ease-in-out'
 						>
 							<strong>Sign up</strong>
@@ -165,6 +167,12 @@ export default function Signup() {
 							Already have an account? Log in!
 						</Link>
 					</form>
+
+					{message.message && (
+						<div className='bg-green-300 ring-2 ring-green-600 mt-5 p-3 rounded-xl text-center'>
+							{message.message}
+						</div>
+					)}
 
 					{/* <div className={styles.otherOptions}>
 						<hr className={styles.divider} />

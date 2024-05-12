@@ -2,8 +2,13 @@
 
 import { redirect } from 'next/navigation'
 import { createClient } from '../../utils/supabase/server'
+import { revalidatePath } from 'next/cache'
 
-export async function signup(formData: any) {
+type FormState = {
+	message: string
+}
+
+export async function signUp(prevState: FormState, formData: FormData) {
 	const supabase = createClient()
 	const data = {
 		email: formData.get('email'),
@@ -13,19 +18,16 @@ export async function signup(formData: any) {
 	// const { error } = await supabase.auth.signUp(data)
 
 	const { error } = await supabase.auth.signUp({
-		email: data.email,
-		password: data.password,
+		email: data.email as string,
+		password: data.password as string,
 		options: {
 			data: {
-				name: formData.get('name')
-			}
-		}
+				name: formData.get('name') as string,
+			},
+		},
 	})
-
-	if (error) {
-		console.error(error)
-		redirect('/error')
-	} else {
-		redirect('/')
+	
+	return {
+		message: error ? error.message : "Verify your email complete registration",
 	}
 }

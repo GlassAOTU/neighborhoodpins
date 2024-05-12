@@ -6,7 +6,7 @@ import LoginGoogleButton from '@/app/components/buttons/LoginGoogleButton'
 import { useFormState } from 'react-dom'
 
 export default function LoginPage() {
-	// const [state, formAction] = useFormState(login, null)
+	const [message, submitForm] = useFormState(login, { message: '' })
 
 	return (
 		<div className='bg-coach-green min-h-screen-80'>
@@ -17,7 +17,7 @@ export default function LoginPage() {
 					</span>
 
 					{/* form start */}
-					<form className='flex flex-col items-center gap-2.5 w-7/10'>
+					<form className='flex flex-col items-center gap-2.5 w-7/10' action={submitForm}>
 						<label
 							htmlFor='email'
 							className='self-start pl-2.5 pb-0'
@@ -50,7 +50,6 @@ export default function LoginPage() {
 						</Link>
 						<button
 							type='submit'
-							formAction={login}
 							className='w-full p-2 font-bold text-emerald-900 rounded-2xl bg-emerald-300 border ring-1 ring-inset ring-emerald-700 hover:text-white hover:bg-emerald-500 transition ease-in-out'
 						>
 							Log in
@@ -62,6 +61,12 @@ export default function LoginPage() {
 							New user? Sign up!
 						</Link>
 					</form>
+					{message.message && (
+						<div className='bg-red-300 ring-2 ring-red-600 mt-5 p-3 rounded-xl text-center'>
+							{message.message}
+						</div>
+					)}
+
 					{/* form end */}
 
 					{/* <hr className='w-3/4' />

@@ -15,15 +15,22 @@ export async function login(prevState: FormState, formData: FormData) {
 		password: formData.get('password') as string,
 	}
 
-	const { error } = await supabase.auth.signInWithPassword(data)
+	const {
+		data: { user },
+		error,
+	} = await supabase.auth.signInWithPassword(data)
 
 	const signInRedirect = () => {
 		revalidatePath('/', 'layout')
 		redirect('/')
 	}
 
-	return {
-		message: error ? error.message : signInRedirect(),
+	if (user?.confirmed_at) {
+		return {
+			message: error ? error.message : signInRedirect(),
+		}
+	} else {
+		return { message: 'Verify your email to log in' }
 	}
 }
 
