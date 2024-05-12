@@ -11,14 +11,14 @@ const OurVision = () => {
       </div>
       <div className="flex justify-center">
         <div className="text-center lg:text-left">
-          <h2 className="relative inline-block text-[50px] text-[#1E1E1E] font-bold lg:text-[70px]">
+          <h2 className="relative inline-block text-3xl text-[#1E1E1E] font-bold lg:text-6xl">
             Our Vision <Image src={Underline} alt="" className="absolute left-0 bottom-0" />
           </h2>
-          <p className="mt-[25px] max-w-[531px] text-2xl text-[#474747] lg:text-[22px]">
+          <p className="mt-6 max-w-[531px] text-xl text-[#474747] lg:text-2xl px-5">
             Since the early days, our team has focused on how we can strengthen and connect our
             communities to positively impact the lives of people.
           </p>
-          <p className="mt-[25px] max-w-[531px] text-2xl text-[#474747] lg:text-[22px]">
+          <p className="mt-6 max-w-[531px] text-xl text-[#474747] lg:text-2xl px-5">
               That’s why we’ve created our own community here at NeighborhoodPins that allows
               community members to engage and support others around them. We hope to continue
               expanding in the near future to be able to provide these resources to other cities

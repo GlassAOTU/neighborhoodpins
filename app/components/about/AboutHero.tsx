@@ -10,7 +10,7 @@ const AboutHero = () => {
 			<div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
 				<div className='flex justify-center'>
 					<div>
-						<h1 className='max-w-[480px] text-6xl text-[#1E1E1E] font-bold relative lg:max-w-[684px] lg:text-[68px]'>
+						<h1 className='max-w-[480px] text-3xl text-[#1E1E1E] font-bold relative sm:text-4xl lg:max-w-[684px] lg:text-6xl'>
 							NeighborhoodPins is a community, <br /> first and{' '}
 							<span className='relative'>
 								foremost.{' '}
@@ -26,7 +26,7 @@ const AboutHero = () => {
 								className='absolute top-[-45px] right-[-45px]'
 							/>
 						</h1>
-						<p className='mt-[15px] max-w-[595px] text-2xl text-[#474747] lg:text-[22px] lg:mt-[35px]'>
+						<p className='mt-4 max-w-[595px] text-xl text-[#474747] lg:text-2xl lg:mt-9'>
 							{`We're a technology platform that is focused on
 							building a community of members that each play a
 							part in improving our daily lives across Long
@@ -46,7 +46,7 @@ const AboutHero = () => {
 			<Image
 				src={CurveLine}
 				alt=''
-				className='mx-auto mt-[-40px] mb-[-40px] w-[50%] lg:w-[50%]'
+				className='mx-auto -mt-10 -mb-10 w-[50%] lg:w-[50%]'
 			/>
 		</div>
 	)

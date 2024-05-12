@@ -22,20 +22,17 @@ const teamData = [
 
 const Team = () => {
   return (
-    <div className="mt-[40px] py-[10px] bg-[#FAFAFA]  lg:mt-[70px] lg:py-[100px]">
+    <div className="mt-[40px] py-[10px] bg-white  lg:mt-[70px] lg:py-[100px]">
       <div className="container">
         <div className="text-center">
           <h2 className="relative inline-block text-[32px] text-[#1E1E1E] font-bold lg:text-[70px]">
             Say hello to our team members
           </h2>
-          {/* <p className="mt-[25px] text-[15px] text-[#474747] lg:text-[22px]">
-            Lorem ipsum dolor sit amet consectetur. Lectus vitae sit amet et aliquam.
-          </p> */}
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-10">
           {teamData.map((member, index) => (
-            <div key={index} className="flex flex-col sm:flex-row">
+            <div key={index} className="flex flex-col items-center sm:flex-row">
               <div className="flex-1">
                 <Image src={member.profilePicture} alt="" className="max-w-[220px] border-2" />
               </div>
@@ -44,7 +41,7 @@ const Team = () => {
                 className="mt-auto w-full bg-white sm:w-[220px]"
                 style={{ boxShadow: "9px -9px 16px -5px rgba(102, 115, 121, 0.08)" }}
               >
-                <div className="p-3 pb-5 sm:p-6">
+                <div className="p-3 pb-5 sm:p-6 text-center">
                   <h4 className="text-[#1E1E1E] text-[20px] font-semibold sm:text-[24px]">
                     {member.name}
                   </h4>
@@ -53,7 +50,7 @@ const Team = () => {
                   </p>
                 </div>
                 <div
-                  className="py-[8px] px-3 lg:py-[14px] lg:px-5"
+                  className="py-[8px] px-3 lg:py-[14px] lg:px-5 flex justify-center items-center"
                   style={{ boxShadow: "9px -9px 16px -5px rgba(102, 115, 121, 0.08)" }}
                 >
                   <a href={member.linkedin} target="_blank">
