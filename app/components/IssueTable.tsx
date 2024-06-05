@@ -224,7 +224,7 @@ export default function IssueTable() {
                   <BiTachometer className="text-2xl" />
                   <h4 className="font-semibold">Severity</h4>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center justify-center">
                   <p>{item.severity.toUpperCase()}</p>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export default function IssueTable() {
                   <MdOutlinePhoneInTalk className="text-2xl" />
                   <h4 className="font-semibold">Phone Number</h4>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center justify-center">
                   <p>{item.government.phone_number}</p>
                 </div>
               </div>
