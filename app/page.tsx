@@ -387,7 +387,7 @@ export default function Home() {
 			<MapLegend />
 			<div
 				ref={mapContainer}
-				className='fixed top-0 right-0 bottom-0 left-0 h-[calc(100vh-80px)] z-1'
+				className='fixed top-0 right-0 bottom-0 left-0 h-[calc(100vh-50px)] z-1'
 			/>
 			{showModal && isUser && (
 				<ConfirmationModal

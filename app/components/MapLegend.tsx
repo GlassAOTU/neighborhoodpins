@@ -1,21 +1,33 @@
-import styles from '@/app/styles/Home.module.css'
+import styles from '@/app/styles/Home.module.css';
 
 export default function MapLegend() {
-	return (
-		<div className={styles.mapLegend}>
-			<div>
-				<div
-					// className={styles.legendTitle}
-					className='text-md font-bold p-2 text-center underline'
-				>
-					Color Legend
-				</div>
+  return (
+    <div className={`${styles.mapLegend} bg-white p-4 rounded-lg shadow-lg`}>
+      <div>
+        <div className='text-md font-bold p-2 text-center underline'>
+          Color Legend
+        </div>
 
-				<div className='bg-orange-400 p-1 ring-2 ring-inset ring-orange-700 rounded-lg sm:p-1 sm:my-1'>Pothole</div>
-				<div className='bg-green-400 p-1 ring-2 ring-inset ring-green-700 rounded-lg sm:p-1 sm:my-1'>Fallen tree</div>
-				<div className='bg-yellow-300 p-1 ring-2 ring-inset ring-yellow-600 rounded-lg sm:p-1 sm:my-1'>Broken streetlight</div>
-				<div className='bg-blue-400 p-1 ring-2 ring-inset ring-blue-700 rounded-lg sm:p-1 sm:my-1'>Flooding</div>
-			</div>
-		</div>
-	)
+        <div className='flex items-center my-2 mx-2'>
+          <div className='w-5 h-5 bg-orange-400 rounded-full mr-2 ring-2 ring-inset ring-orange-700'></div>
+          <span>Pothole</span>
+        </div>
+        
+        <div className='flex items-center my-2 mx-2'>
+          <div className='w-5 h-5 bg-green-400 rounded-full mr-2 ring-2 ring-inset ring-green-700'></div>
+          <span>Fallen tree</span>
+        </div>
+
+        <div className='flex items-center my-2 mx-2'>
+          <div className='w-5 h-5 bg-yellow-300 rounded-full mr-2 ring-2 ring-inset ring-yellow-600'></div>
+          <span>Broken streetlight</span>
+        </div>
+
+        <div className='flex items-center my-2 mx-2'>
+          <div className='w-5 h-5 bg-blue-400 rounded-full mr-2 ring-2 ring-inset ring-blue-700'></div>
+          <span>Flooding</span>
+        </div>
+      </div>
+    </div>
+  );
 }

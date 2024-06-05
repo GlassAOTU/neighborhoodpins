@@ -26,15 +26,15 @@ export default function Navbar({ children }: any) {
 							<Image
 								src='../icon.svg'
 								alt='NeighborhoodPins icon'
-								width={64}
-								height={64}
+								width={40}
+								height={40}
 								className='shrink-1'
 								priority
 							/>
 							<Image
 								src='../logo.svg'
 								alt='NeighborhoodPins logo'
-								width={400}
+								width={300}
 								height={80}
 								className='mt-2 shrink-1 min-w-0'
 								priority
